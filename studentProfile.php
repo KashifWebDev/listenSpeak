@@ -1,15 +1,23 @@
+<?php
+require 'app/app.php';
+if(!isset($_SESSION["id"])){
+    js_redirect('index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <?php $title = "Student Profile"; require_once 'app/head.php'; ?>
-
 <body>
 
   <!-- ======= Header ======= -->
   <?php require_once 'app/top_bar.php'; ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php require_once 'app/side_bar.php'; ?>
+  <?php
+    if($_SESSION["userType"]=="Student") require_once 'app/student_side_bar.php';
+    if($_SESSION["userType"]=="Admin") require_once 'app/admin_side_bar.php';
+    if($_SESSION["userType"]=="Teacher") require_once 'app/side_bar.php';
+  ?>
   <!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -51,6 +59,10 @@
 
                               <li class="nav-item">
                                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#activities">Activities</button>
+                              </li>
+
+                              <li class="nav-item">
+                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#grades">Grades</button>
                               </li>
                           </ul>
                           <div class="tab-content pt-2">
@@ -141,6 +153,57 @@
                                           </div><!-- End activity item-->
 
                                       </div>
+
+                                  </div>
+                              </div>
+
+                              <div class="tab-pane fade profile-edit pt-3" id="grades">
+
+                                  <div class="card-body">
+                                      <h5 class="card-title">Grades</h5>
+
+                                      <table class="table table-striped">
+                                          <thead>
+                                          <tr>
+                                              <th scope="col">#</th>
+                                              <th scope="col">Activity Name</th>
+                                              <th scope="col">Grades</th>
+                                              <th scope="col">Date</th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          <tr>
+                                              <th scope="row">1</th>
+                                              <td>Brandon Jacob</td>
+                                              <td>28</td>
+                                              <td>2016-05-25</td>
+                                          </tr>
+                                          <tr>
+                                              <th scope="row">2</th>
+                                              <td>Bridie Kessler</td>
+                                              <td>35</td>
+                                              <td>2014-12-05</td>
+                                          </tr>
+                                          <tr>
+                                              <th scope="row">3</th>
+                                              <td>Ashleigh Langosh</td>
+                                              <td>45</td>
+                                              <td>2011-08-12</td>
+                                          </tr>
+                                          <tr>
+                                              <th scope="row">4</th>
+                                              <td>Angus Grady</td>
+                                              <td>34</td>
+                                              <td>2012-06-11</td>
+                                          </tr>
+                                          <tr>
+                                              <th scope="row">5</th>
+                                              <td>Raheem Lehner</td>
+                                              <td>47</td>
+                                              <td>2011-04-19</td>
+                                          </tr>
+                                          </tbody>
+                                      </table>
 
                                   </div>
                               </div>

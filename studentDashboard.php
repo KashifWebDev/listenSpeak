@@ -1,8 +1,13 @@
+<?php
+require 'app/app.php';
+if(!isset($_SESSION["id"])){
+    js_redirect('index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <?php $title = "Teacher Dashboard"; require_once 'app/head.php'; ?>
-<?php $_SESSION["userType"] = "Student"; ?>
 <body>
 
   <!-- ======= Header ======= -->

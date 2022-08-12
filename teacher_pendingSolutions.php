@@ -15,7 +15,7 @@ if(!isset($_SESSION["id"])){
   <?php require_once 'app/top_bar.php'; ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php require_once 'app/student_side_bar.php'; ?>
+  <?php require_once 'app/side_bar.php'; ?>
   <!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -43,8 +43,8 @@ if(!isset($_SESSION["id"])){
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Total Attempts</th>
-                                <th scope="col">Date</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">Submitted Date</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
@@ -52,70 +52,70 @@ if(!isset($_SESSION["id"])){
                             <tr>
                                 <th scope="row">1</th>
                                 <td>Activity</td>
-                                <td>28</td>
+                                <td>Ron</td>
                                 <td>
-                                    10 Apr, 2022
+                                    22 Apr, 2022
                                 </td>
                                 <td>
-                                    <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                        <i class="bi bi-upload me-1"></i>
-                                        Submit Solution
+                                    <a href="teacher_checkSolution.php" class="btn btn-primary rounded-pill">
+                                        <i class="bi bi-pen-fill me-1"></i>
+                                        Grade 
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
                                 <td>Activity</td>
-                                <td>35</td>
+                                <td>Rexi</td>
                                 <td>
-                                    10 Apr, 2022
+                                    22 Apr, 2022
                                 </td>
                                 <td>
                                     <a href="student_allActivities.php" class="btn btn-primary rounded-pill">
-                                        <i class="bi bi-upload me-1"></i>
-                                        Submit Solution
+                                        <i class="bi bi-pen-fill me-1"></i>
+                                        Grade 
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">3</th>
                                 <td>Activity</td>
-                                <td>45</td>
+                                <td>Danial</td>
                                 <td>
-                                    10 Apr, 2022
+                                    22 Apr, 2022
                                 </td>
                                 <td>
-                                    <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                        <i class="bi bi-upload me-1"></i>
-                                        Submit Solution
+                                    <a href="teacher_checkSolution.php" class="btn btn-primary rounded-pill">
+                                        <i class="bi bi-pen-fill me-1"></i>
+                                        Grade 
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">4</th>
                                 <td>Activity</td>
-                                <td>34</td>
+                                <td>Scott</td>
                                 <td>
-                                    10 Apr, 2022
+                                    22 Apr, 2022
                                 </td>
                                 <td>
-                                    <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                        <i class="bi bi-upload me-1"></i>
-                                        Submit Solution
+                                    <a href="teacher_checkSolution.php" class="btn btn-primary rounded-pill">
+                                        <i class="bi bi-pen-fill me-1"></i>
+                                        Grade 
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">5</th>
                                 <td>Activity</td>
-                                <td>47</td>
+                                <td>Ali</td>
                                 <td>
-                                    10 Apr, 2022
+                                    22 Apr, 2022
                                 </td>
                                 <td>
-                                    <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                        <i class="bi bi-upload me-1"></i>
-                                        Submit Solution
+                                    <a href="teacher_checkSolution.php" class="btn btn-primary rounded-pill">
+                                        <i class="bi bi-pen-fill me-1"></i>
+                                        Grade 
                                     </a>
                                 </td>
                             </tr>

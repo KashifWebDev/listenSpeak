@@ -14,7 +14,7 @@ if(!isset($_SESSION["id"])){
   <?php require_once 'app/top_bar.php'; ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php require_once 'app/side_bar.php'; ?>
+  <?php require_once 'app/admin_side_bar.php'; ?>
   <!-- End Sidebar-->
 
   <main id="main" class="main">

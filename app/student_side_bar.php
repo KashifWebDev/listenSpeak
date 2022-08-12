@@ -10,6 +10,13 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
+            <a class="nav-link " href="studentProfile.php">
+                <i class="bi bi-person-fill"></i>
+                <span>My Profile</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+
+        <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav1" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-list-task"></i><span>Activities</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>

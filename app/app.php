@@ -3,11 +3,7 @@
 session_start();
 require 'db.php';
 //checkIfUserLoggedIn();
-
-session_start();
 $_SESSION["appAddress"] = "http://abcdatabase.online/";
-
-//error_reporting(0);
 
 	function js_alert($msg){
 		echo '
@@ -20,18 +16,26 @@ $_SESSION["appAddress"] = "http://abcdatabase.online/";
 			<script>console.log("'.$msg.'");</script>;
 		';
 	}
-
 	function js_redirect($url){
 		echo '
 			<script>window.location.replace("'.$url.'");</script>
 		';
-//		header('Location: '.$url);
 	}
-
-
 
     function getloggedInUserId(){
 	    return isset($_SESSION["id"]) ? $_SESSION["id"] : null;
+    }
+
+    function gotoDashboard(){
+	    if(isset($_SESSION["id"])){
+            $_SESSION["loginRequired"] = false;
+            if($_SESSION["userType"]=="Student") js_redirect('studentDashboard.php');
+            if($_SESSION["userType"]=="Admin") js_redirect('adminDashboard.php');
+            if($_SESSION["userType"]=="Teacher") js_redirect('teacherDashboard.php');
+        }else{
+	        $_SESSION["loginRequired"] = true;
+            js_redirect("index.php");
+        }
     }
 
     function checkIfUserLoggedIn(){

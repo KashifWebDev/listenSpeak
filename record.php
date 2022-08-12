@@ -1,4 +1,10 @@
 <?php
+require 'app/app.php';
+if(!isset($_SESSION["id"])){
+    js_redirect('index.php');
+}
+?>
+<?php
 define('UPLOAD_DIR', './');
 if(isset($_FILES['fileName']) && $_FILES['fileName']){
     echo "yes";

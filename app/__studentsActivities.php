@@ -11,6 +11,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Activity</th>
                         <th scope="col">Solution</th>
+                        <th scope="col">Date Submitted</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -21,6 +22,7 @@
                         <td>
                             <a href="javascript:void(0)">Listen Audio</a>
                         </td>
+                        <td>10 Apr, 2022</td>
                         <td>
                             <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
                                 <i class="bi bi-arrow-clockwise me-1"></i>
@@ -34,6 +36,7 @@
                         <td>
                             <a href="javascript:void(0)">Listen Audio</a>
                         </td>
+                        <td>10 Apr, 2022</td>
                         <td>
                             <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
                                 <i class="bi bi-arrow-clockwise me-1"></i>
@@ -47,6 +50,7 @@
                         <td>
                             <a href="javascript:void(0)">Listen Audio</a>
                         </td>
+                        <td>10 Apr, 2022</td>
                         <td>
                             <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
                                 <i class="bi bi-arrow-clockwise me-1"></i>
@@ -60,6 +64,7 @@
                         <td>
                             <a href="javascript:void(0)">Listen Audio</a>
                         </td>
+                        <td>10 Apr, 2022</td>
                         <td>
                             <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
                                 <i class="bi bi-arrow-clockwise me-1"></i>
@@ -73,6 +78,7 @@
                         <td>
                             <a href="javascript:void(0)">Listen Audio</a>
                         </td>
+                        <td>10 Apr, 2022</td>
                         <td>
                             <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
                                 <i class="bi  bi-arrow-clockwise me-1"></i>

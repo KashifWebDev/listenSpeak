@@ -1,3 +1,9 @@
+<?php
+require 'app/app.php';
+if(!isset($_SESSION["id"])){
+    js_redirect('index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
