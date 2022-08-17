@@ -15,61 +15,31 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Brandon Jacob</td>
-                        <td>28</td>
-                        <td>
-                            <a href="studentProfile.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-person-circle me-1"></i>
-                                Profile
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Bridie Kessler</td>
-                        <td>35</td>
-                        <td>
-                            <a href="studentProfile.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-person-circle me-1"></i>
-                                Profile
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Ashleigh Langosh</td>
-                        <td>45</td>
-                        <td>
-                            <a href="studentProfile.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-person-circle me-1"></i>
-                                Profile
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Angus Grady</td>
-                        <td>34</td>
-                        <td>
-                            <a href="studentProfile.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-person-circle me-1"></i>
-                                Profile
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Raheem Lehner</td>
-                        <td>47</td>
-                        <td>
-                            <a href="studentProfile.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-person-circle me-1"></i>
-                                Profile
-                            </a>
-                        </td>
-                    </tr>
+                    <?php
+                        $s = "SELECT * FROM users WHERE userType='Student'";
+                        $res = mysqli_query($con, $s);
+                        if(mysqli_num_rows($res)){
+                            $count = 1;
+                            while ($row = mysqli_fetch_array($res)){
+                                ?>
+                                <tr>
+                                    <th scope="row"><?=$count++?></th>
+                                    <td>
+                                        <img height="37px" src="assets/img/students/<?=$row["pic"]?>" alt="" class="me-2">
+                                        <?=$row["fullName"]?>
+                                    </td>
+                                    <td>28</td>
+                                    <td>
+                                        <a href="studentProfile.php?id=<?=$row["id"]?>" class="btn btn-primary rounded-pill">
+                                            <i class="bi bi-person-circle me-1"></i>
+                                            Profile
+                                        </a>
+                                    </td>
+                                </tr>
+                    <?php
+                            }
+                        }
+                    ?>
                     </tbody>
                 </table>
             </div>

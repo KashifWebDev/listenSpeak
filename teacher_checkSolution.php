@@ -24,7 +24,7 @@ if(!isset($_SESSION["id"])){
       <h1><?= $title ?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="./teacherDashboard.php">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
           <li class="breadcrumb-item active"><?= $title ?></li>
         </ol>
       </nav>
@@ -41,11 +41,40 @@ if(!isset($_SESSION["id"])){
                         </div>
                         <form class="row g-3 mt-3">
                             <div class="d-flex my-3">
-                                <label for="inputText" class="col-form-label">Set Activities per Week: </label>
+                                <label for="inputText" class="col-form-label">Grades Percentage: </label>
                                 <div class="ms-3">
-                                    <input type="number" class="form-control">
+                                    <input type="number" class="form-control" min="0" max="100">
                                 </div>
                             </div>
+                            <?php
+                                $form = array(
+                                        array('heading' => 'Message', 'name' => 'message'),
+                                        array('heading' => 'Structure', 'name' => 'structure'),
+                                        array('heading' => 'Logic', 'name' => 'logic'),
+                                        array('heading' => 'Fluency: Use of Language', 'name' => 'fluency'),
+                                        array('heading' => 'Expression', 'name' => 'expression'),
+                                        array('heading' => 'Projection', 'name' => 'projection'),
+                                        array('heading' => 'Posture and Body Language', 'name' => 'posture'),
+                                        array('heading' => 'Eye Contact', 'name' => 'eyeContact'),
+                                        array('heading' => 'Pause', 'name' => 'pause'),
+                                        array('heading' => 'Connection', 'name' => 'connection')
+                                );
+                                foreach ($form as $filed){
+                                    ?>
+                                    <div class="row mb-3">
+                                        <label class="col-sm-5 col-form-label"><?=$filed["heading"]?></label>
+                                        <div class="col-sm-7">
+                                            <select class="form-select" required name="<?=$filed["name"]?>">
+                                                <option selected="">-- SELECT --</option>
+                                                <option value="Excellent">Excellent</option>
+                                                <option value="Proficient">Proficient</option>
+                                                <option value="Needs Attention">Needs Attention</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            ?>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary w-50">
                                     <i class="bi bi-check-circle        "></i>

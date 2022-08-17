@@ -15,6 +15,11 @@
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
+                    <a href="admin_registerStudent.php">
+                        <i class="bi bi-circle"></i><span>Student Registration</span>
+                    </a>
+                </li>
+                <li>
                     <a href="admin_allStudents.php">
                         <i class="bi bi-circle"></i><span>All Students</span>
                     </a>

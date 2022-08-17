@@ -3,6 +3,18 @@ require 'app/app.php';
 if(!isset($_SESSION["id"])){
     js_redirect('index.php');
 }
+if(!isset($_GET["id"])){
+    js_redirect("./");
+}
+$id = $_GET["id"];
+$qry = "SELECT * FROM users WHERE id = $id";
+$res = mysqli_query($con, $qry);
+if(mysqli_num_rows($res)){
+    $row = mysqli_fetch_array($res);
+}else{
+    js_redirect("./");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +38,7 @@ if(!isset($_SESSION["id"])){
       <h1><?= $title ?></h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="./teacherDashboard.php">Dashboard</a></li>
+          <li class="breadcrumb-item"><a href="./">Dashboard</a></li>
           <li class="breadcrumb-item active"><?= $title ?></li>
         </ol>
       </nav>
@@ -34,20 +46,20 @@ if(!isset($_SESSION["id"])){
 
       <section class="section profile dashboard">
           <div class="row">
-              <div class="col-xl-4">
+              <div class="col-xl-12">
 
                   <div class="card">
                       <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                          <img src="assets/img/students/student.jpg" alt="Profile" class="rounded-circle shadow">
-                          <h2>Kevin Anderson</h2>
+                          <img src="assets/img/students/<?=$row["pic"]?>" alt="Profile" class="rounded-circle shadow">
+                          <h2><?=$row["fullName"]?></h2>
                           <h3>Student</h3>
                       </div>
                   </div>
 
               </div>
 
-              <div class="col-xl-8">
+              <div class="col-xl-12">
 
                   <div class="card">
                       <div class="card-body pt-3">
@@ -72,27 +84,32 @@ if(!isset($_SESSION["id"])){
 
                                   <div class="row">
                                       <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                                      <div class="col-lg-9 col-md-8">Kevin Anderson</div>
+                                      <div class="col-lg-9 col-md-8"><?=$row["fullName"]?></div>
                                   </div>
 
                                   <div class="row">
                                       <div class="col-lg-3 col-md-4 label">Country</div>
-                                      <div class="col-lg-9 col-md-8">USA</div>
+                                      <div class="col-lg-9 col-md-8"><?=$row["country"]?></div>
                                   </div>
 
                                   <div class="row">
                                       <div class="col-lg-3 col-md-4 label">Address</div>
-                                      <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                                      <div class="col-lg-9 col-md-8"><?=$row["address"]?></div>
                                   </div>
 
                                   <div class="row">
                                       <div class="col-lg-3 col-md-4 label">Phone</div>
-                                      <div class="col-lg-9 col-md-8">(436) 486-3538 x29071</div>
+                                      <div class="col-lg-9 col-md-8"><?=$row["phone"]?></div>
                                   </div>
 
                                   <div class="row">
                                       <div class="col-lg-3 col-md-4 label">Email</div>
-                                      <div class="col-lg-9 col-md-8">k.anderson@example.com</div>
+                                      <div class="col-lg-9 col-md-8"><?=$row["email"]?></div>
+                                  </div>
+
+                                  <div class="row">
+                                      <div class="col-lg-3 col-md-4 label">Level</div>
+                                      <div class="col-lg-9 col-md-8"><?=$row["level"]?></div>
                                   </div>
 
                               </div>
@@ -168,39 +185,31 @@ if(!isset($_SESSION["id"])){
                                               <th scope="col">#</th>
                                               <th scope="col">Activity Name</th>
                                               <th scope="col">Grades</th>
-                                              <th scope="col">Date</th>
+                                              <th scope="col">Message</th>
+                                              <th scope="col">Structure</th>
+                                              <th scope="col">Fluency</th>
+                                              <th scope="col">Expression</th>
+                                              <th scope="col">Projection</th>
+                                              <th scope="col">Posture </th>
+                                              <th scope="col">Eye Contact</th>
+                                              <th scope="col">Pause</th>
+                                              <th scope="col">Connection</th>
                                           </tr>
                                           </thead>
                                           <tbody>
                                           <tr>
                                               <th scope="row">1</th>
                                               <td>Brandon Jacob</td>
-                                              <td>28</td>
-                                              <td>2016-05-25</td>
-                                          </tr>
-                                          <tr>
-                                              <th scope="row">2</th>
-                                              <td>Bridie Kessler</td>
-                                              <td>35</td>
-                                              <td>2014-12-05</td>
-                                          </tr>
-                                          <tr>
-                                              <th scope="row">3</th>
-                                              <td>Ashleigh Langosh</td>
-                                              <td>45</td>
-                                              <td>2011-08-12</td>
-                                          </tr>
-                                          <tr>
-                                              <th scope="row">4</th>
-                                              <td>Angus Grady</td>
-                                              <td>34</td>
-                                              <td>2012-06-11</td>
-                                          </tr>
-                                          <tr>
-                                              <th scope="row">5</th>
-                                              <td>Raheem Lehner</td>
-                                              <td>47</td>
-                                              <td>2011-04-19</td>
+                                              <td>28%</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
+                                              <td>Excellent</td>
                                           </tr>
                                           </tbody>
                                       </table>
