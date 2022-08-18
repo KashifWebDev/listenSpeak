@@ -4,9 +4,14 @@ if(!isset($_SESSION["id"])){
     js_redirect('index.php');
 }
 if(!isset($_GET["id"])){
-    js_redirect("./");
+    if($_SESSION["userType"]=="Student"){
+        $id = $_SESSION["id"];
+    }else{
+        js_redirect("./");
+    }
+}else{
+    $id = $_GET["id"];
 }
-$id = $_GET["id"];
 $qry = "SELECT * FROM users WHERE id = $id";
 $res = mysqli_query($con, $qry);
 if(mysqli_num_rows($res)){
@@ -121,53 +126,28 @@ if(mysqli_num_rows($res)){
 
                                       <div class="activity">
 
-                                          <div class="activity-item d-flex">
-                                              <div class="activite-label">32 min</div>
-                                              <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                              <div class="activity-content">
-                                                  Submitted reply to <b>activity No. 4</b>
-                                              </div>
-                                          </div><!-- End activity item-->
-
-                                          <div class="activity-item d-flex">
-                                              <div class="activite-label">56 min</div>
-                                              <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                                              <div class="activity-content">
-                                                  Submitted reply to <b>activity No. 1</b>
-                                              </div>
-                                          </div><!-- End activity item-->
-
-                                          <div class="activity-item d-flex">
-                                              <div class="activite-label">2 hrs</div>
-                                              <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                                              <div class="activity-content">
-                                                  Submitted reply to <b>activity No. 2</b>
-                                              </div>
-                                          </div><!-- End activity item-->
-
-                                          <div class="activity-item d-flex">
-                                              <div class="activite-label">1 day</div>
-                                              <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                                              <div class="activity-content">
-                                                  Submitted reply to <b>activity No. 3</b>
-                                              </div>
-                                          </div><!-- End activity item-->
-
-                                          <div class="activity-item d-flex">
-                                              <div class="activite-label">2 days</div>
-                                              <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                                              <div class="activity-content">
-                                                  Submitted reply to <b>activity No. 2</b>
-                                              </div>
-                                          </div><!-- End activity item-->
-
-                                          <div class="activity-item d-flex">
-                                              <div class="activite-label">4 weeks</div>
-                                              <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                                              <div class="activity-content">
-                                                  Submitted reply to <b>activity No. 4</b>
-                                              </div>
-                                          </div><!-- End activity item-->
+                                          <?php
+                                            $qry = "SELECT * FROM solutions WHERE user_id=$id";
+                                            $res = mysqli_query($con, $qry);
+                                            if(mysqli_num_rows($res)){
+                                                while($row = mysqli_fetch_array($res)){
+                                                    $activityID = $row["activity_id"];
+                                                    $qry = "SELECT * FROm activities WHERE id=$activityID";
+                                                    $qry1 = mysqli_query($con, $qry);
+                                                    $qry2 = mysqli_fetch_array($qry1);
+                                                    $activityName = $qry2["name"];
+                                                    ?>
+                                                    <div class="activity-item d-flex">
+                                                        <div class="activite-label"><?=$row["date_time"]?></div>
+                                                        <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                                                        <div class="activity-content">
+                                                            Submitted reply to <b>activity No. <?=$activityID?> (<?=$activityName?>)</b>
+                                                        </div>
+                                                    </div>
+                                          <?php
+                                                }
+                                            }
+                                          ?>
 
                                       </div>
 
@@ -197,20 +177,37 @@ if(mysqli_num_rows($res)){
                                           </tr>
                                           </thead>
                                           <tbody>
-                                          <tr>
-                                              <th scope="row">1</th>
-                                              <td>Brandon Jacob</td>
-                                              <td>28%</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                              <td>Excellent</td>
-                                          </tr>
+                                          <?php
+                                          $qry = "SELECT * FROM grades WHERE user_id=$id";
+                                          $res = mysqli_query($con, $qry);
+                                          if(mysqli_num_rows($res)){
+                                              $count = 1;
+                                              while($row = mysqli_fetch_array($res)){
+                                                  $activityID = $row["activity_id"];
+                                                  $qry = "SELECT * FROm activities WHERE id=$activityID";
+                                                  $qry1 = mysqli_query($con, $qry);
+                                                  $qry2 = mysqli_fetch_array($qry1);
+                                                  $activityName = $qry2["name"];
+                                                  ?>
+                                                  <tr>
+                                                      <th scope="row"><?=$count++?></th>
+                                                      <td><?=$activityName?></td>
+                                                      <td><?=$row["percentage"]?>%</td>
+                                                      <td><?=$row["message"]?></td>
+                                                      <td><?=$row["structure"]?></td>
+                                                      <td><?=$row["fluency"]?></td>
+                                                      <td><?=$row["expression"]?></td>
+                                                      <td><?=$row["projection"]?></td>
+                                                      <td><?=$row["posture"]?></td>
+                                                      <td><?=$row["eyeContact"]?></td>
+                                                      <td><?=$row["pause"]?></td>
+                                                      <td><?=$row["connection"]?></td>
+                                                  </tr>
+                                                  <?php
+                                              }
+                                          }
+                                          ?>
+
                                           </tbody>
                                       </table>
 

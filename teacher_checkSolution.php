@@ -3,6 +3,37 @@ require 'app/app.php';
 if(!isset($_SESSION["id"])){
     js_redirect('index.php');
 }
+if(isset($_POST["save"])){
+    $grades = $_POST["grades"];
+    $message = $_POST["message"];
+    $structure = $_POST["structure"];
+    $logic = $_POST["logic"];
+    $fluency = $_POST["fluency"];
+    $expression = $_POST["expression"];
+    $projection = $_POST["projection"];
+    $posture = $_POST["posture"];
+    $eyeContact = $_POST["eyeContact"];
+    $pause = $_POST["pause"];
+    $connection = $_POST["connection"];
+    $user_id = $_POST["user_id"];
+    $activity_id = $_POST["activity_id"];
+    $solutionID = $_POST["solutionID"];
+
+    $s = "INSERT INTO grades(user_id, activity_id, percentage, message, structure, logic, fluency, expression, projection, posture, eyeContact, pause, connection)
+ VALUES ($user_id, $activity_id, $grades ,'$message', '$structure', '$logic', '$fluency', '$expression', '$projection', '$posture', '$eyeContact', '$pause', '$connection')";
+    if(mysqli_query($con, $s)){
+        $s = "UPDATE solutions SET graded=1 WHERE id = $solutionID";
+        mysqli_query($con, $s);
+        js_redirect('teacher_pendingSolutions.php?grade=done');
+    }
+}
+if(!isset($_GET["id"])){
+    js_redirect("./");
+}
+$id = $_GET["id"];
+$qry = "SELECT * FROM solutions WHERE id=$id";
+$res = mysqli_query($con, $qry);
+$row = mysqli_fetch_array($res);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +46,7 @@ if(!isset($_SESSION["id"])){
   <?php require_once 'app/top_bar.php'; ?>
 
   <!-- ======= Sidebar ======= -->
-  <?php require_once 'app/student_side_bar.php'; ?>
+  <?php require_once 'app/side_bar.php'; ?>
   <!-- End Sidebar-->
 
   <main id="main" class="main">
@@ -37,13 +68,16 @@ if(!isset($_SESSION["id"])){
                     <div class="card-body">
                         <h5 class="card-title">Grade Activity</h5>
                         <div class="row my-3">
-                            <audio controls src="recordedAudios/file.wav"></audio>
+                            <audio controls src="recordedAudios/<?=$row["audio"]?>"></audio>
                         </div>
-                        <form class="row g-3 mt-3">
+                        <form class="row g-3 mt-3" method="post" action="">
+                            <input type="hidden" name="solutionID" value="<?=$id?>">
+                            <input type="hidden" name="user_id" value="<?=$row["user_id"]?>">
+                            <input type="hidden" name="activity_id" value="<?=$row["activity_id"]?>">
                             <div class="d-flex my-3">
                                 <label for="inputText" class="col-form-label">Grades Percentage: </label>
                                 <div class="ms-3">
-                                    <input type="number" class="form-control" min="0" max="100">
+                                    <input type="number" class="form-control" min="0" max="100" name="grades" required>
                                 </div>
                             </div>
                             <?php
@@ -65,7 +99,7 @@ if(!isset($_SESSION["id"])){
                                         <label class="col-sm-5 col-form-label"><?=$filed["heading"]?></label>
                                         <div class="col-sm-7">
                                             <select class="form-select" required name="<?=$filed["name"]?>">
-                                                <option selected="">-- SELECT --</option>
+                                                <option selected="" value>-- SELECT --</option>
                                                 <option value="Excellent">Excellent</option>
                                                 <option value="Proficient">Proficient</option>
                                                 <option value="Needs Attention">Needs Attention</option>
@@ -76,8 +110,8 @@ if(!isset($_SESSION["id"])){
                                 }
                             ?>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary w-50">
-                                    <i class="bi bi-check-circle        "></i>
+                                <button type="submit" class="btn btn-primary w-50" name="save">
+                                    <i class="bi bi-check-circle"></i>
                                     Save Grade
                                 </button>
                             </div>

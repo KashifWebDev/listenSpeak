@@ -16,76 +16,31 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Brandon Jacob</td>
-                        <td>
-                            <a href="javascript:void(0)">Listen Audio</a>
-                        </td>
-                        <td>10 Apr, 2022</td>
-                        <td>
-                            <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-arrow-clockwise me-1"></i>
-                                Resubmit Solution
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Bridie Kessler</td>
-                        <td>
-                            <a href="javascript:void(0)">Listen Audio</a>
-                        </td>
-                        <td>10 Apr, 2022</td>
-                        <td>
-                            <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-arrow-clockwise me-1"></i>
-                                Resubmit Solution
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Ashleigh Langosh</td>
-                        <td>
-                            <a href="javascript:void(0)">Listen Audio</a>
-                        </td>
-                        <td>10 Apr, 2022</td>
-                        <td>
-                            <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-arrow-clockwise me-1"></i>
-                                Resubmit Solution
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Angus Grady</td>
-                        <td>
-                            <a href="javascript:void(0)">Listen Audio</a>
-                        </td>
-                        <td>10 Apr, 2022</td>
-                        <td>
-                            <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                <i class="bi bi-arrow-clockwise me-1"></i>
-                                Resubmit Solution
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Raheem Lehner</td>
-                        <td>
-                            <a href="javascript:void(0)">Listen Audio</a>
-                        </td>
-                        <td>10 Apr, 2022</td>
-                        <td>
-                            <a href="student_UploadAudio.php" class="btn btn-primary rounded-pill">
-                                <i class="bi  bi-arrow-clockwise me-1"></i>
-                                Resubmit Solution
-                            </a>
-                        </td>
-                    </tr>
+                    <?php
+                        $uid = $_SESSION["id"];
+                        $s = "SELECT * FROM solutions WHERE user_id = $uid";
+                        $res = mysqli_query($con, $s);
+                        if(mysqli_num_rows($res)){
+                            while ($row = mysqli_fetch_array($res)){
+                                $count = 1;
+                                ?>
+                                <tr>
+                                    <th scope="row"><?=$count++?></th>
+                                    <td>Brandon Jacob</td>
+                                    <td>
+                                        <a href="javascript:void(0)">Listen Audio</a>
+                                    </td>
+                                    <td>10 Apr, 2022</td>
+                                    <td>
+                                        <a href="student_UploadAudio.php?id=<?=$row["activity_id"]?>" class="btn btn-primary rounded-pill">
+                                            <i class="bi bi-arrow-clockwise me-1"></i>
+                                            Resubmit Solution
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php }
+                        }
+                    ?>
                     </tbody>
                 </table>
             </div>

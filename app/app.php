@@ -2,6 +2,9 @@
 
 session_start();
 require 'db.php';
+
+date_default_timezone_set('Africa/Johannesburg');
+
 //checkIfUserLoggedIn();
 $_SESSION["appAddress"] = "http://abcdatabase.online/";
 

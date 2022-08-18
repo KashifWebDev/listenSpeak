@@ -17,7 +17,6 @@ if(isset($_POST["addStudent"])){
         $banner=$_FILES['image']['name'];
         $expbanner=explode('.',$banner);
         $bannerexptype=$expbanner[1];
-        date_default_timezone_set('Africa/Johannesburg');
         $date = date('m/d/Yh:i:sa', time());
         $rand=rand(10000,99999);
         $encname=$date.$rand;

@@ -7,8 +7,10 @@ if(!isset($_SESSION["id"])){
 <?php
 define('UPLOAD_DIR', './');
 if(isset($_FILES['fileName']) && $_FILES['fileName']){
-    echo "yes";
-    $target_path = UPLOAD_DIR.'recordedAudios/' . basename( $_FILES['fileName']['name']);
+    $fileName = basename( $_FILES['fileName']['name']);
+    $fileName = time().'.mp3';
+    $_SESSION["fileName"] = $fileName;
+    $target_path = UPLOAD_DIR.'recordedAudios/' . $fileName;
     if(move_uploaded_file($_FILES['fileName']['tmp_name'], $target_path)) {
         echo "The file ". basename( $_FILES['fileName']['name']). " has been uploaded";
     } else{
@@ -254,11 +256,11 @@ if(isset($_FILES['fileName']) && $_FILES['fileName']){
     </script>
 </head>
 <body>
-<div class="holder">
-    <div data-role="controls">
-        <button>Record</button>
+    <div class="holder">
+        <div data-role="controls">
+            <button>Record</button>
+        </div>
+        <div data-role="recordings"></div>
     </div>
-    <div data-role="recordings"></div>
-</div>
 </body>
 </html>

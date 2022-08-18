@@ -11,7 +11,7 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
         $res = mysqli_query($con, $qry);
         if(mysqli_num_rows($res)){
             $row = mysqli_fetch_array($res);
-            $_SESSION["id"] = $row["userType"];
+            $_SESSION["id"] = $row["id"];
             $_SESSION["fullName"] = $row["fullName"];
             $_SESSION["pic"] = $row["pic"];
             $_SESSION["userType"] = $row["userType"];
@@ -29,7 +29,7 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Login - Listen&Speak</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -53,12 +53,6 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.1.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -86,7 +80,7 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
               <div class="d-flex justify-content-center py-4">
                 <a href="/" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">Listen&Speak</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -102,7 +96,7 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
                   <form class="row g-3 needs-validation" novalidate method="post">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="email" class="form-control" id="yourUsername" required>
@@ -126,7 +120,7 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
                       <button class="btn btn-primary w-100" name="login" type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="signup.php">Create an account</a></p>
+<!--                      <p class="small mb-0">Don't have account? <a href="signup.php">Create an account</a></p>-->
                     </div>
                   </form>
 

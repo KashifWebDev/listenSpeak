@@ -7,7 +7,7 @@ if(!isset($_SESSION["id"])){
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title = "Teacher Dashboard"; require_once 'app/head.php'; ?>
+<?php $title = "Student Dashboard"; require_once 'app/head.php'; ?>
 <body>
 
   <!-- ======= Header ======= -->
@@ -79,7 +79,7 @@ if(!isset($_SESSION["id"])){
 
       </div>
 
-        <?php require 'app/__studentsActivities.php'; ?>
+        <?php require 'app/__listAllActivitiesForStudent.php'; ?>
     </section>
 
   </main><!-- End #main -->
