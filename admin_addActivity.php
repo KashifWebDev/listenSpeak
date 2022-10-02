@@ -7,8 +7,41 @@ if(isset($_POST["addActivity"])){
     $name = isset($_POST["name"]) ? $_POST["name"] : '';
     $link = isset($_POST["link"]) ? $_POST["link"] : '';
     $desc = isset($_POST["desc"]) ? $_POST["desc"] : '';
-    $sql = "INSERT INTO activities (name, link, description) 
-            VALUES ('$name', '$link', '$desc')";
+    $newFileName = null;
+
+if(isset($_FILES['file'])) {
+    $errors= array();
+    $file_name = $_FILES['file']['name'];
+    $file_size = $_FILES['file']['size'];
+    $file_tmp = $_FILES['file']['tmp_name'];
+    $file_type = $_FILES['file']['type'];
+    $file_ext= pathinfo($file_name, PATHINFO_EXTENSION);
+
+    $fileNameCmps = explode(".", $file_name);
+
+    // sanitize file-name
+    $newFileName = md5(time()). '.' . $file_ext;
+
+    $extensions= array("jpeg","jpg","png", "pdf", "doc", "docx");
+
+    if(in_array($file_ext,$extensions)=== false){
+        $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+    }
+
+    if($file_size > 2097152) {
+        $errors[]='File size must be excately 2 MB';
+    }
+
+    if(empty($errors)==true) {
+        move_uploaded_file($file_tmp,"assets/files/".$newFileName);
+        echo "Success";
+    }else{
+        print_r($errors);
+    }
+}
+
+    $sql = "INSERT INTO activities (name, link, description, file) 
+            VALUES ('$name', '$link', '$desc', '$newFileName')";
     mysqli_query($con, $sql) ?
         js_redirect('admin_addActivity.php?success=1') :
         js_redirect('admin_addActivity.php?err=1');
@@ -68,7 +101,7 @@ if(isset($_POST["addActivity"])){
                       <h5 class="card-title">Add an Activity</h5>
 
                       <!-- Vertical Form -->
-                      <form class="row g-3" method="post" action="">
+                      <form class="row g-3" method="post" action="" enctype="multipart/form-data">
                           <div class="col-12">
                               <label for="inputNanme4" class="form-label">Activity Name</label>
                               <input type="text" class="form-control" id="inputNanme4" name="name" required>
@@ -80,6 +113,12 @@ if(isset($_POST["addActivity"])){
                           <div class="col-12">
                               <label for="inputEmail4" class="form-label">Description</label>
                               <textarea class="form-control" name="desc" style="height: 100px"></textarea>
+                          </div>
+                          <div class="row my-3">
+                              <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                              <div class="col-sm-10">
+                                  <input class="form-control" type="file" id="formFile" name="file">
+                              </div>
                           </div>
                           <div class="text-center">
                               <button type="submit" class="btn btn-primary w-50" name="addActivity">

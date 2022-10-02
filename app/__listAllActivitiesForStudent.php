@@ -15,6 +15,7 @@
             <tbody>
             <?php
             $qry = "SELECT * FROM activities WHERE released=1";
+            $qry = "SELECT * FROM activities";
             $res = mysqli_query($con, $qry);
             if(mysqli_num_rows($res)){
                 while ($row = mysqli_fetch_array($res)){
