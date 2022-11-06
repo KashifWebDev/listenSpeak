@@ -7,8 +7,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Youtube Link</th>
-                <th scope="col">Status</th>
+                <!--<th scope="col">Youtube Link</th>-->
+                <!--<th scope="col">Status</th>-->
                 <th scope="col">Actions</th>
             </tr>
             </thead>
@@ -24,12 +24,12 @@
                     <tr>
                         <th scope="row"><?=$count++?></th>
                         <td><?=$row["name"]?></td>
-                        <td>
-                            <a target="_blank" href="<?=$row["link"]?>">Link</a>
-                        </td>
-                        <td>
-                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Released</span>
-                        </td>
+                        <!--<td>-->
+                        <!--    <a target="_blank" href="<?=$row["link"]?>">Link</a>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                        <!--    <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Released</span>-->
+                        <!--</td>-->
                         <td>
                             <a href="student_UploadAudio.php?id=<?=$row["id"]?>" class="btn btn-primary rounded-pill">
                                 <i class="bi bi-upload me-1"></i>

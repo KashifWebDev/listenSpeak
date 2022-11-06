@@ -75,7 +75,7 @@ if(!isset($_SESSION["id"])){
                                 $qry = "SELECT * FROm activities WHERE id=$activityID";
                                 $qry1 = mysqli_query($con, $qry);
                                 $qry2 = mysqli_fetch_array($qry1);
-                                $activityName = $qry2["name"];
+                                $activityName = $qry2["name"] ?? '';
                             ?>
                                 <tr>
                                     <th scope="row"><?=$count++?></th>

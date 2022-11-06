@@ -178,7 +178,7 @@ if(mysqli_num_rows($res)){
                                           </thead>
                                           <tbody>
                                           <?php
-                                          $qry = "SELECT * FROM grades WHERE user_id=$id";
+                                          $qry = "SELECT * FROM listen_grades WHERE user_id=$id";
                                           $res = mysqli_query($con, $qry);
                                           if(mysqli_num_rows($res)){
                                               $count = 1;

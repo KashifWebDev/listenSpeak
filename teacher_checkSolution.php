@@ -19,7 +19,7 @@ if(isset($_POST["save"])){
     $activity_id = $_POST["activity_id"];
     $solutionID = $_POST["solutionID"];
 
-    $s = "INSERT INTO grades(user_id, activity_id, percentage, message, structure, logic, fluency, expression, projection, posture, eyeContact, pause, connection)
+    $s = "INSERT INTO listen_grades(user_id, activity_id, percentage, message, structure, logic, fluency, expression, projection, posture, eyeContact, pause, connection)
  VALUES ($user_id, $activity_id, $grades ,'$message', '$structure', '$logic', '$fluency', '$expression', '$projection', '$posture', '$eyeContact', '$pause', '$connection')";
     if(mysqli_query($con, $s)){
         $s = "UPDATE solutions SET graded=1 WHERE id = $solutionID";
