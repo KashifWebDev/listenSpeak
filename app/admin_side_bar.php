@@ -50,6 +50,19 @@
             </ul>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#whatsapp" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-whatsapp"></i><span>Whatsapp</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="whatsapp" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="admin_whatsapp.php">
+                        <i class="bi bi-circle"></i><span>Send Message</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
 
 
     </ul>
