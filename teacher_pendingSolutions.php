@@ -72,6 +72,7 @@ if(!isset($_SESSION["id"])){
                                 $qry1 = mysqli_query($con, $qry);
                                 $qry2 = mysqli_fetch_array($qry1);
                                 $username = $qry2["fullName"];
+                                $isPaid = $qry2["is_paid"];
                                 $qry = "SELECT * FROm activities WHERE id=$activityID";
                                 $qry1 = mysqli_query($con, $qry);
                                 $qry2 = mysqli_fetch_array($qry1);
@@ -83,10 +84,14 @@ if(!isset($_SESSION["id"])){
                                     <td><?=$username?></td>
                                     <td><?=$row["date_time"]?></td>
                                     <td>
+                                        <?php
+                                        if($isPaid){
+                                        ?>
                                         <a href="teacher_checkSolution.php?id=<?=$row["id"]?>" class="btn btn-primary rounded-pill">
                                             <i class="bi bi-pen-fill me-1"></i>
                                             Grade
                                         </a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                             <?php

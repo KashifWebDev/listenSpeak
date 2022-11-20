@@ -63,6 +63,19 @@
             </ul>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#userPayments" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-currency-dollar"></i><span>User Payments</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="userPayments" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="admin_user_payments.php">
+                        <i class="bi bi-circle"></i><span>All Users</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
 
 
     </ul>
