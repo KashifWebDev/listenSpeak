@@ -5,8 +5,10 @@ if(!isset($_SESSION["id"])){
 }
 if(isset($_POST["addActivity"])){
     $name = isset($_POST["name"]) ? $_POST["name"] : '';
+    $unitName = isset($_POST["unitName"]) ? $_POST["unitName"] : '';
     $link = isset($_POST["link"]) ? $_POST["link"] : '';
     $desc = isset($_POST["desc"]) ? $_POST["desc"] : '';
+    $course = isset($_POST["course"]) ? $_POST["course"] : '';
     $newFileName = null;
 
 if(isset($_FILES['file'])) {
@@ -40,8 +42,8 @@ if(isset($_FILES['file'])) {
     }
 }
 
-    $sql = "INSERT INTO activities (name, link, description, file) 
-            VALUES ('$name', '$link', '$desc', '$newFileName')";
+    $sql = "INSERT INTO activities (unitName, name, link, description, file, course) 
+            VALUES ('$unitName', '$name', '$link', '$desc', '$newFileName', '$course')";
     mysqli_query($con, $sql) ?
         js_redirect('admin_addActivity.php?success=1') :
         js_redirect('admin_addActivity.php?err=1');
@@ -98,21 +100,33 @@ if(isset($_FILES['file'])) {
               ?>
               <div class="card">
                   <div class="card-body">
-                      <h5 class="card-title">Add an Activity</h5>
+                      <h5 class="card-title">Add Lesson</h5>
 
                       <!-- Vertical Form -->
                       <form class="row g-3" method="post" action="" enctype="multipart/form-data">
                           <div class="col-12">
-                              <label for="inputNanme4" class="form-label">Activity Name</label>
+                              <label for="inputNanme4" class="form-label">Unit Name</label>
+                              <input type="text" class="form-control" id="inputNanme4" name="unitName" required>
+                          </div>
+                          <div class="col-12">
+                              <label for="inputNanme4" class="form-label">Lesson Name</label>
                               <input type="text" class="form-control" id="inputNanme4" name="name" required>
                           </div>
                           <div class="col-12">
-                              <label for="inputEmail4" class="form-label">YouTube Link</label>
+                              <label for="inputEmail4" class="form-label">Video Link</label>
                               <input type="text" class="form-control" id="inputEmail4" name="link">
                           </div>
                           <div class="col-12">
                               <label for="inputEmail4" class="form-label">Description</label>
                               <textarea class="form-control" name="desc" style="height: 100px"></textarea>
+                          </div>
+                          <div class="col-12">
+                              <label for="inputState" class="form-label">Select Course</label>
+                              <select id="inputState" class="form-select" name="course">
+                                  <option value="Basic">Basic</option>
+                                  <option value="Intermediate">Intermediate</option>
+                                  <option value="Advance">Advance</option>
+                              </select>
                           </div>
                           <div class="row my-3">
                               <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>

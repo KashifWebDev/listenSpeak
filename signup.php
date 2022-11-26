@@ -1,3 +1,57 @@
+<?php
+
+require 'app/app.php';
+
+if(!isset($_SESSION["id"])){
+    js_redirect('index.php');
+}
+
+if(isset($_POST["addStudent"])){
+    $name = isset($_POST["name"]) ? $_POST["name"] : '';
+    $country = isset($_POST["country"]) ? $_POST["country"] : '';
+    $address = isset($_POST["address"]) ? $_POST["address"] : '';
+    $email = isset($_POST["email"]) ? $_POST["email"] : '';
+    $phone = isset($_POST["phone"]) ? $_POST["phone"] : '';
+    $pass = isset($_POST["pass"]) ? $_POST["pass"] : '';
+    $level = isset($_POST["level"]) ? $_POST["level"] : '';
+    $picture = "default.jpg";
+
+    if(!empty($_FILES['image']['name'])){
+        $banner=$_FILES['image']['name'];
+        $expbanner=explode('.',$banner);
+        $bannerexptype=$expbanner[1];
+        $date = date('m/d/Yh:i:sa', time());
+        $rand=rand(10000,99999);
+        $encname=$date.$rand;
+        $picture=md5($encname).'.'.$bannerexptype;
+        $bannerpath="assets/img/students/".$picture;
+        move_uploaded_file($_FILES["image"]["tmp_name"],$bannerpath);
+    }
+
+    $qry = "SELECT * FROM users where email='$email'";
+    $result = mysqli_query($con, $qry);
+    $num_rows = mysqli_num_rows($result);
+    if($num_rows >= 1){
+        js_redirect("admin_registerStudent.php?err=1");
+    }else{
+        $sql = mysqli_query ($con,
+            "INSERT INTO
+                    users(fullName, country, address, phone, email, pass, userType, pic, level) 
+                    VALUES ('$name', '$country', '$address', '$phone', '$email', '$pass', 'Student', '$picture', '$level')"
+        );
+        if($sql){
+//            js_redirect("admin_registerStudent.php?success=1");
+
+            $_SESSION["id"] = mysqli_insert_id($con);;
+            $_SESSION["fullName"] = $name;
+            $_SESSION["pic"] = $picture;
+            $_SESSION["userType"] = 'Student';
+            $_SESSION["loginRequired"] = false;
+            gotoDashboard();
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,13 +82,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.1.0
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -42,78 +89,88 @@
   <main>
     <div class="container">
 
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+        <section class="section register mt-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
 
-              <div class="d-flex justify-content-center py-4">
-                <a href="#" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
-                </a>
-              </div><!-- End Logo -->
 
-              <div class="card mb-3">
+                    <div class="d-flex justify-content-center py-4">
+                        <a href="/" class="logo d-flex align-items-center w-auto">
+                            <img src="assets/img/logo.png" alt="">
+                            <span class="d-none d-lg-block">Listen&Speak</span>
+                        </a>
+                    </div><!-- End Logo -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Student Registration Form</h5>
 
-                <div class="card-body">
+                            <!-- Horizontal Form -->
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Full Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputText" required="" name="name">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="inputEmail" required="" name="email">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="inputPassword" required="" name="pass">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Country</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassword" required="" name="country">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassword" required="" name="address">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Phone</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputPassword" required="" name="phone">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputPassword3" class="col-sm-2 col-form-label">Course</label>
+                                    <div class="col-sm-10">
+                                        <select id="inputState" class="form-select" name="course">
+                                            <option value="Basic">Basic</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Advance">Advance</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Picture</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="file" id="formFile" name="image">
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary" name="addStudent">
+                                        <i class="bi bi-person-plus me-2"></i>
+                                        Save Student
+                                    </button>
+                                </div>
+                            </form><!-- End Horizontal Form -->
 
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
-                  </div>
-
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Your Name</label>
-                      <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                        </div>
                     </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Your Email</label>
-                      <input type="email" name="email" class="form-control" id="yourEmail" required>
-                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="./">Log in</a></p>
-                    </div>
-                  </form>
-
                 </div>
-              </div>
-
             </div>
-          </div>
-        </div>
-
-      </section>
+        </section>
 
     </div>
   </main><!-- End #main -->

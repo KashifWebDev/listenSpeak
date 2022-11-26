@@ -133,7 +133,7 @@ function startRecording() {
     	We're using the standard promise based getUserMedia() 
     	https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 	*/
-
+console.log('test');
 	navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
 		console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
 
@@ -167,6 +167,8 @@ function startRecording() {
 
 	}).catch(function(err) {
 	  	//enable the record button if getUserMedia() fails
+
+        console.log('test failed');
     	recordButton.disabled = false;
     	stopButton.disabled = true;
     	pauseButton.disabled = true

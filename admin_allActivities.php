@@ -50,7 +50,7 @@ if(isset($_GET["del_id"])) {
 
     <section class="section dashboard">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12"  >
                 <?php
                 if(isset($_GET["success"])){
                     ?>
@@ -98,9 +98,9 @@ if(isset($_GET["del_id"])) {
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Youtube Link</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Unit Name</th>
+                                <th scope="col">Lesson Name</th>
+                                <th scope="col">Course</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
@@ -115,16 +115,9 @@ if(isset($_GET["del_id"])) {
                                         <tr>
                                             <th scope="row"><?=$count++?></th>
                                             <td><?=$row["name"]?></td>
-                                            <td>
-                                                <a target="_blank" href="<?=$row["link"]?>">Link</a>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                    echo $row["released"] ?
-                                                        '<span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Released</span>' :
-                                                        '<span class="badge bg-secondary"><i class="bi bi-collection me-1"></i> Pending</span>';
-                                                ?>
-                                            </td>
+                                            <td><?=$row["unitName"]?></td>
+                                            <td><?=$row["name"]?></td>
+                                            <td><?=$row["course"]?></td>
                                             <td>
                                                 <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#edit_<?=$row["id"]?>">
                                                     <i class="bi bi-pencil-fill me-1"></i>
