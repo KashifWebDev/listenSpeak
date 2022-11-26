@@ -109,12 +109,11 @@ if(isset($_GET["del_id"])) {
                                 $qry = "SELECT * FROM activities";
                                 $res = mysqli_query($con, $qry);
                                 if(mysqli_num_rows($res)){
+                                    $count =1;
                                     while ($row = mysqli_fetch_array($res)){
-                                        $count =1;
                                         ?>
                                         <tr>
                                             <th scope="row"><?=$count++?></th>
-                                            <td><?=$row["name"]?></td>
                                             <td><?=$row["unitName"]?></td>
                                             <td><?=$row["name"]?></td>
                                             <td><?=$row["course"]?></td>
