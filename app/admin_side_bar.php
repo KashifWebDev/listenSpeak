@@ -42,26 +42,26 @@
                         <i class="bi bi-circle"></i><span>All Activities</span>
                     </a>
                 </li>
-                <li>
-                    <a href="admin_activitySettings.php">
-                        <i class="bi bi-circle"></i><span>Activity Settings</span>
-                    </a>
-                </li>
+<!--                <li>-->
+<!--                    <a href="admin_activitySettings.php">-->
+<!--                        <i class="bi bi-circle"></i><span>Activity Settings</span>-->
+<!--                    </a>-->
+<!--                </li>-->
             </ul>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#whatsapp" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-whatsapp"></i><span>Whatsapp</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="whatsapp" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="admin_whatsapp.php">
-                        <i class="bi bi-circle"></i><span>Send Message</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+<!--        <li class="nav-item">-->
+<!--            <a class="nav-link collapsed" data-bs-target="#whatsapp" data-bs-toggle="collapse" href="#">-->
+<!--                <i class="bi bi-whatsapp"></i><span>Whatsapp</span><i class="bi bi-chevron-down ms-auto"></i>-->
+<!--            </a>-->
+<!--            <ul id="whatsapp" class="nav-content collapse " data-bs-parent="#sidebar-nav">-->
+<!--                <li>-->
+<!--                    <a href="admin_whatsapp.php">-->
+<!--                        <i class="bi bi-circle"></i><span>Send Message</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </li>-->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#userPayments" data-bs-toggle="collapse" href="#">
