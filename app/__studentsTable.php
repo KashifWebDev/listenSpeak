@@ -10,13 +10,13 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Submitted Activities</th>
+                        <th scope="col">Progress</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
-                        $s = "SELECT * FROM users WHERE userType='Student'";
+                        $s = "SELECT * FROM users WHERE user_type='Student'";
                         $res = mysqli_query($con, $s);
                         if(mysqli_num_rows($res)){
                             $count = 1;
@@ -28,9 +28,13 @@
                                         <img height="37px" src="assets/img/students/<?=$row["pic"]?>" alt="" class="me-2">
                                         <?=$row["fullName"]?>
                                     </td>
-                                    <td>28</td>
                                     <td>
-                                        <a href="studentProfile.php?id=<?=$row["id"]?>" class="btn btn-primary rounded-pill">
+                                        <div class="progress" style="width: 175px">
+                                            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="studentProfile.php?id=<?=$row["user_id"]?>" class="btn btn-primary rounded-pill">
                                             <i class="bi bi-person-circle me-1"></i>
                                             Profile
                                         </a>
