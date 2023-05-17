@@ -11,10 +11,10 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
         $res = mysqli_query($con, $qry);
         if(mysqli_num_rows($res)){
             $row = mysqli_fetch_array($res);
-            $_SESSION["id"] = $row["id"];
+            $_SESSION["id"] = $row["user_id"];
             $_SESSION["fullName"] = $row["fullName"];
             $_SESSION["pic"] = $row["pic"];
-            $_SESSION["userType"] = $row["userType"];
+            $_SESSION["userType"] = $row["user_type"];
             $_SESSION["loginRequired"] = false;
             gotoDashboard();
         }else{

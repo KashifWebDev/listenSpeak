@@ -30,16 +30,8 @@ $menu = array(
                 'link' => 'admin/courses/add_course.php'
             ),
             array(
-                'title' => 'Course Settings',
-                'link' => 'admin/courses/course_settings.php'
-            ),
-            array(
                 'title' => 'Assign Instructors',
                 'link' => 'admin/courses/assign_instructors.php'
-            ),
-            array(
-                'title' => 'Enrollment Rules',
-                'link' => 'admin/courses/enrollment_rules.php'
             )
         )
     ),
