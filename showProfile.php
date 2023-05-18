@@ -1,5 +1,6 @@
 <?php
 require 'app/app.php';
+$path = "";
 if(!isset($_SESSION["id"])){
     js_redirect('index.php');
 }
@@ -12,7 +13,7 @@ if(!isset($_GET["id"])){
 }else{
     $id = $_GET["id"];
 }
-$qry = "SELECT * FROM users WHERE id = $id";
+$qry = "SELECT * FROM users WHERE user_id = $id";
 $res = mysqli_query($con, $qry);
 if(mysqli_num_rows($res)){
     $row = mysqli_fetch_array($res);
@@ -58,7 +59,7 @@ if(mysqli_num_rows($res)){
 
                           <img src="assets/img/students/<?=$row["pic"]?>" alt="Profile" class="rounded-circle shadow">
                           <h2><?=$row["fullName"]?></h2>
-                          <h3>Student</h3>
+                          <h3><?=$row["user_type"]?></h3>
                       </div>
                   </div>
 
@@ -72,14 +73,6 @@ if(mysqli_num_rows($res)){
                           <ul class="nav nav-tabs nav-tabs-bordered">
                               <li class="nav-item">
                                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                              </li>
-
-                              <li class="nav-item">
-                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#activities">Activities</button>
-                              </li>
-
-                              <li class="nav-item">
-                                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#grades">Grades</button>
                               </li>
                           </ul>
                           <div class="tab-content pt-2">
@@ -112,11 +105,6 @@ if(mysqli_num_rows($res)){
                                       <div class="col-lg-9 col-md-8"><?=$row["email"]?></div>
                                   </div>
 
-                                  <div class="row">
-                                      <div class="col-lg-3 col-md-4 label">Level</div>
-                                      <div class="col-lg-9 col-md-8"><?=$row["level"]?></div>
-                                  </div>
-
                               </div>
 
                               <div class="tab-pane fade profile-edit pt-3" id="activities">
@@ -126,28 +114,28 @@ if(mysqli_num_rows($res)){
 
                                       <div class="activity">
 
-                                          <?php
-                                            $qry = "SELECT * FROM solutions WHERE user_id=$id";
-                                            $res = mysqli_query($con, $qry);
-                                            if(mysqli_num_rows($res)){
-                                                while($row = mysqli_fetch_array($res)){
-                                                    $activityID = $row["activity_id"];
-                                                    $qry = "SELECT * FROm activities WHERE id=$activityID";
-                                                    $qry1 = mysqli_query($con, $qry);
-                                                    $qry2 = mysqli_fetch_array($qry1);
-                                                    $activityName = $qry2["name"];
-                                                    ?>
-                                                    <div class="activity-item d-flex">
-                                                        <div class="activite-label"><?=$row["date_time"]?></div>
-                                                        <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                                                        <div class="activity-content">
-                                                            Submitted reply to <b>activity No. <?=$activityID?> (<?=$activityName?>)</b>
-                                                        </div>
-                                                    </div>
-                                          <?php
-                                                }
-                                            }
-                                          ?>
+<!--                                          --><?php
+//                                            $qry = "SELECT * FROM solutions WHERE user_id=$id";
+//                                            $res = mysqli_query($con, $qry);
+//                                            if(mysqli_num_rows($res)){
+//                                                while($row = mysqli_fetch_array($res)){
+//                                                    $activityID = $row["activity_id"];
+//                                                    $qry = "SELECT * FROm activities WHERE id=$activityID";
+//                                                    $qry1 = mysqli_query($con, $qry);
+//                                                    $qry2 = mysqli_fetch_array($qry1);
+//                                                    $activityName = $qry2["name"];
+//                                                    ?>
+<!--                                                    <div class="activity-item d-flex">-->
+<!--                                                        <div class="activite-label">--><?php //=$row["date_time"]?><!--</div>-->
+<!--                                                        <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>-->
+<!--                                                        <div class="activity-content">-->
+<!--                                                            Submitted reply to <b>activity No. --><?php //=$activityID?><!-- (--><?php //=$activityName?><!--)</b>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                          --><?php
+//                                                }
+//                                            }
+//                                          ?>
 
                                       </div>
 
@@ -177,36 +165,36 @@ if(mysqli_num_rows($res)){
                                           </tr>
                                           </thead>
                                           <tbody>
-                                          <?php
-                                          $qry = "SELECT * FROM listen_grades WHERE user_id=$id";
-                                          $res = mysqli_query($con, $qry);
-                                          if(mysqli_num_rows($res)){
-                                              $count = 1;
-                                              while($row = mysqli_fetch_array($res)){
-                                                  $activityID = $row["activity_id"];
-                                                  $qry = "SELECT * FROm activities WHERE id=$activityID";
-                                                  $qry1 = mysqli_query($con, $qry);
-                                                  $qry2 = mysqli_fetch_array($qry1);
-                                                  $activityName = $qry2["name"];
-                                                  ?>
-                                                  <tr>
-                                                      <th scope="row"><?=$count++?></th>
-                                                      <td><?=$activityName?></td>
-                                                      <td><?=$row["percentage"]?>%</td>
-                                                      <td><?=$row["message"]?></td>
-                                                      <td><?=$row["structure"]?></td>
-                                                      <td><?=$row["fluency"]?></td>
-                                                      <td><?=$row["expression"]?></td>
-                                                      <td><?=$row["projection"]?></td>
-                                                      <td><?=$row["posture"]?></td>
-                                                      <td><?=$row["eyeContact"]?></td>
-                                                      <td><?=$row["pause"]?></td>
-                                                      <td><?=$row["connection"]?></td>
-                                                  </tr>
-                                                  <?php
-                                              }
-                                          }
-                                          ?>
+<!--                                          --><?php
+//                                          $qry = "SELECT * FROM listen_grades WHERE user_id=$id";
+//                                          $res = mysqli_query($con, $qry);
+//                                          if(mysqli_num_rows($res)){
+//                                              $count = 1;
+//                                              while($row = mysqli_fetch_array($res)){
+//                                                  $activityID = $row["activity_id"];
+//                                                  $qry = "SELECT * FROm activities WHERE id=$activityID";
+//                                                  $qry1 = mysqli_query($con, $qry);
+//                                                  $qry2 = mysqli_fetch_array($qry1);
+//                                                  $activityName = $qry2["name"];
+//                                                  ?>
+<!--                                                  <tr>-->
+<!--                                                      <th scope="row">--><?php //=$count++?><!--</th>-->
+<!--                                                      <td>--><?php //=$activityName?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["percentage"]?><!--%</td>-->
+<!--                                                      <td>--><?php //=$row["message"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["structure"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["fluency"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["expression"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["projection"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["posture"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["eyeContact"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["pause"]?><!--</td>-->
+<!--                                                      <td>--><?php //=$row["connection"]?><!--</td>-->
+<!--                                                  </tr>-->
+<!--                                                  --><?php
+//                                              }
+//                                          }
+//                                          ?>
 
                                           </tbody>
                                       </table>

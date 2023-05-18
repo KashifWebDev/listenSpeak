@@ -19,7 +19,7 @@ if(isset($_POST["assign"])){
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title = "Manage Subjects"; $path = '../../'; require_once '../../app/head.php'; ?>
+<?php $title = "Manage Units"; $path = '../../'; require_once '../../app/head.php'; ?>
 <body>
 
 <!-- ======= Header ======= -->
@@ -49,7 +49,7 @@ if(isset($_POST["assign"])){
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi bi-check-circle me-1"></i>
-                        Course was linked successfully!
+                        Unit was Updated successfully!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php

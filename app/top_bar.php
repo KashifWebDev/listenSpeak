@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-        <a href="index.php" class="logo d-flex align-items-center">
+        <a href="<?=$path?>" class="logo d-flex align-items-center">
             <i class="bi bi-mic-fill logoImg"></i>
             <span class="d-none d-lg-block">Listen&Speak</span>
         </a>
