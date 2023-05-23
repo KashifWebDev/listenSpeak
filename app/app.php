@@ -34,7 +34,7 @@ $GLOBALS["prod"] = false;
     function gotoDashboard(){
 	    if(isset($_SESSION["id"])){
             $_SESSION["loginRequired"] = false;
-            if($_SESSION["userType"]=="Student") js_redirect('studentDashboard.php');
+            if($_SESSION["userType"]=="Student") js_redirect('student/dashboard');
             if($_SESSION["userType"]=="Admin") js_redirect('admin/dashboard');
             if($_SESSION["userType"]=="Teacher") js_redirect('teacherDashboard.php');
         }else{

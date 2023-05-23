@@ -19,14 +19,14 @@ if(isset($_POST["assign"])){
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $title = "Manage Units"; $path = '../../'; require_once '../../app/head.php'; ?>
+<?php $title = "My Progress"; $path = '../../'; require_once '../../app/head.php'; ?>
 <body>
 
 <!-- ======= Header ======= -->
 <?php require_once '../../app/top_bar.php'; ?>
 
 <!-- ======= Sidebar ======= -->
-<?php require_once '../../app/admin_side_bar.php'; ?>
+<?php require_once '../../app/student_side_bar.php'; ?>
 <!-- End Sidebar-->
 
 <main id="main" class="main">
@@ -45,11 +45,11 @@ if(isset($_POST["assign"])){
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <?php
-                if(isset($_GET["success"])){
+                if(isset($_GET["uploaded"])){
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi bi-check-circle me-1"></i>
-                        Unit was Updated successfully!
+                        Response was submitted successfully!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
@@ -65,8 +65,7 @@ if(isset($_POST["assign"])){
                     </div>
                     <?php
                 }
-                $editButtons = true;
-                require '../../app/__adminManageSubjects.php';
+                require '../../app/__studentCourseOutline.php';
                 ?>
 
             </div>
