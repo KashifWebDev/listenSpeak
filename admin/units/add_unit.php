@@ -148,9 +148,9 @@ if(isset($_POST["addUnit"])){
                             <div class="form-group mb-3">
                                 <label for="unitType">Lesson Type</label>
                                 <select class="form-control" id="unitType" name="unitType" onchange="toggleFormFields()" required>
-                                    <option>Select Lesson Type</option>
+                                    <option value>Select Lesson Type</option>
                                     <option value="Unit">Unit</option>
-                                    <option value="Assessment">Assessment</option>
+                                    <option value="Assessment">Activity</option>
                                 </select>
                             </div>
                             <div id="mustHave" style="display: none">
@@ -180,21 +180,21 @@ if(isset($_POST["addUnit"])){
                                         <option value="">Select a subject</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div id="unitFields" style="display: none;">
-                                <div class="form-group mb-3">
-                                    <label for="description">Content</label>
-                                    <textarea name="content" class="form-control" placeholder="Unit Content" id="floatingTextarea" style="height: 100px;"></textarea>
-                                </div>
-                                <div class="form-group mb-3">
+                                <div class="form-group my-3">
                                     <label for="description">Additional Resources</label>
                                     <input class="form-control" type="file" id="formFile" name="image">
                                 </div>
+                                <div class="form-group my-3">
+                                    <label for="description">Unit/Activity Description:</label>
+                                    <textarea name="content" class="form-control" placeholder="Notes For Students.." id="floatingTextarea" style="height: 150px;"></textarea>
+                                </div>
+                            </div>
+                            <div id="unitFields" style="display: none;">
                             </div>
                             <div id="assessmentFields" style="display: none;">
                                 <div class="form-group mb-3">
-                                    <label for="link">Assessment Link</label>
-                                    <input type="text" class="form-control" id="link" name="link" placeholder="https://abcinternationalonline.com/.......">
+                                    <label for="link">Activity Link</label>
+                                    <input type="text" class="form-control" id="link" name="link" placeholder="Website OR Youtube Link">
                                 </div>
                             </div>
                             <div class="row mb-3">

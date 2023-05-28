@@ -72,30 +72,42 @@ if(isset($_POST["assign"])){
 
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="container">
-                    <h3>Activity Description:</h3>
-                    <p>
+            <div class="col-sm-12 col-md-6 mx-md-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Activity Description:</h5>
+                        <p>
+                            <?php
+                            $s = "SELECT * FROM units WHERE unit_id=".$_GET["id"];
+                            $s1 = mysqli_query($GLOBALS['con'], $s);
+                            $s2 = mysqli_fetch_array($s1);
+                            echo isset($s2["content"]) ? $s2["content"] : '<i>NIL</i>';
+                            ?>
+                        </p>
                         <?php
-                        $s = "SELECT * FROM units WHERE unit_id=".$_GET["id"];
-                        $s1 = mysqli_query($GLOBALS['con'], $s);
-                        $s2 = mysqli_fetch_array($s1);
-                        echo isset($s2["content"]) ? $s2["content"] : '<i>NIL</i>';
+                        if(!empty($s2["file"]))
+                            echo '<a href="../../assets/img/units/'.$s2["file"].'" class="btn btn-primary mb-5"><i class="bi bi-download me-1"></i> Download File</a>';
                         ?>
-                    </p>
-                    <?php
-                    if(!empty($s2["file"]))
-                        echo '<a href="assets/files/'.$s2["file"].'" class="btn btn-primary mb-5"><i class="bi bi-download me-1"></i> Download File</a>';
-                    ?>
+
+                        <hr>
+                        <div id="controls" >
+                            <button type="button" class="btn btn-primary rounded-pill" id="recordButton">
+                                <i class="bi bi-megaphone"></i>
+                                Record
+                            </button>
+                            <button type="button" class="btn btn-secondary rounded-pill" id="pauseButton" disabled>
+                                <i class="bi bi-pause-fill"></i>
+                                Pause
+                            </button>
+                            <button type="button" class="btn btn-danger rounded-pill" id="stopButton" disabled>
+                                <i class="bi bi-stop-fill"></i>
+                                Stop
+                            </button>
+                        </div><div ><br></div>
+                        <p><strong>Recordings:</strong></p>
+                        <ol id="recordingsList"></ol>
+                    </div>
                 </div>
-                <div id="controls" >
-                    <button id="recordButton">Record</button>
-                    <button id="pauseButton" disabled>Pause</button>
-                    <button id="stopButton" disabled>Stop</button>
-                </div><div ><br></div>
-                <div id="formats">Format:start recording to see sample rate</div>
-                <p><strong>Recordings:</strong></p>
-                <ol id="recordingsList"></ol>
                 <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
 
                 <!----iframe src="record.php"  width="100%" height="100%" style="height: 50vh;" allow="microphone"></iframe>
@@ -173,7 +185,6 @@ if(isset($_POST["assign"])){
             audioContext = new AudioContext();
 
             //update the format
-            document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
 
             /*  assign to gumStream for later use  */
             gumStream = stream;

@@ -3,6 +3,9 @@ require 'app/app.php';
 if(!isset($_SESSION["id"])){
     js_redirect('index.php');
 }
+if(!isset($_GET["id"])){
+    js_redirect("./");
+}
 if(isset($_POST["save"])){
     $grades = $_POST["grades"];
     $message = $_POST["message"];
@@ -26,9 +29,6 @@ if(isset($_POST["save"])){
         mysqli_query($con, $s);
         js_redirect('teacher_pendingSolutions.php?grade=done');
     }
-}
-if(!isset($_GET["id"])){
-    js_redirect("./");
 }
 $id = $_GET["id"];
 $qry = "SELECT * FROM solutions WHERE id=$id";

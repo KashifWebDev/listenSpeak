@@ -70,6 +70,10 @@ $menu = array(
             array(
                 'title' => 'Manage Users',
                 'link' => 'admin/users/manage_users.php'
+            ),
+            array(
+                'title' => 'Add new User',
+                'link' => 'admin/users/add_user.php'
             )
         )
     ),

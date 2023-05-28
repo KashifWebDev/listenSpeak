@@ -82,7 +82,7 @@ if(isset($_POST["add"])){
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputPassword" class="col-sm-3 col-form-label">Course Name</label>
+                                <label for="inputPassword" class="col-sm-3 col-form-label">Subject Name</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="inputText" required="" name="name">
                                 </div>
