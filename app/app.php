@@ -36,7 +36,7 @@ $GLOBALS["prod"] = false;
             $_SESSION["loginRequired"] = false;
             if($_SESSION["userType"]=="Student") js_redirect('student/dashboard');
             if($_SESSION["userType"]=="Admin") js_redirect('admin/dashboard');
-            if($_SESSION["userType"]=="Teacher") js_redirect('teacherDashboard.php');
+            if($_SESSION["userType"]=="Teacher") js_redirect('teacher/dashboard');
         }else{
 	        $_SESSION["loginRequired"] = true;
             js_redirect("index.php?no");

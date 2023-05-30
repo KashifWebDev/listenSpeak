@@ -42,11 +42,11 @@ function dateTime($dateString){
         <div class="row">
             <div class="col-lg-12">
                 <?php
-                if(isset($_GET["grade"])){
+                if(isset($_GET["done"])){
                     ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <i class="bi bi-check-circle me-1"></i>
-                        Grades were saved successfully!
+                        Grades were marked successfully!
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <?php
