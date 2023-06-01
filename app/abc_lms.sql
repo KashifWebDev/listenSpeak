@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2023 at 10:14 AM
+-- Generation Time: Jun 01, 2023 at 10:32 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -46,18 +46,24 @@ CREATE TABLE `audio_responses` (
 INSERT INTO `audio_responses` (`response_id`, `unit_id`, `student_id`, `teacher_id`, `audio_url`, `status`, `percentage`, `teacher_audio`, `date_time`) VALUES
 (1, 8, 2, 4, 'audio_url_1', 'Approved', NULL, NULL, '2023-05-22 07:06:40'),
 (2, 12, 2, 4, 'audio_url_2', 'Pending', NULL, NULL, '2023-05-22 07:06:40'),
-(3, 16, 3, 5, 'audio_url_3', 'Rejected', NULL, NULL, '2023-05-22 07:06:40'),
+(3, 16, 2, 5, 'audio_url_3', 'Rejected', 33, 'c400c0a66246b48cb468ea638f06f9cd.mp3', '2023-05-22 07:06:40'),
 (4, 17, 3, 5, 'audio_url_4', 'Pending', NULL, NULL, '2023-05-22 07:06:40'),
 (5, 1, 2, NULL, '', 'Pending', NULL, NULL, '2023-05-22 04:10:38'),
 (6, 17, 2, NULL, '', 'Pending', NULL, NULL, '2023-05-22 04:14:32'),
 (7, 17, 2, NULL, '', 'Pending', NULL, NULL, '2023-05-22 04:14:47'),
 (8, 17, 2, NULL, '', 'Pending', NULL, NULL, '2023-05-22 04:17:08'),
 (16, 17, 2, NULL, 'fd6a627d02a36f65d7cbf07bf3db8c0f.mp3', 'Pending', NULL, NULL, '2023-05-22 04:52:05'),
-(17, 18, 2, NULL, '90b78b35965b7b7348394112eb4324e7.mp3', 'Pending', NULL, NULL, '2023-05-22 04:52:19'),
+(17, 18, 2, NULL, '90b78b35965b7b7348394112eb4324e7.mp3', 'Rejected', NULL, 'afff0568554a0af520558fb5b3b80ee6.mp3', '2023-05-22 04:52:19'),
 (18, 16, 2, NULL, 'a1bd5a60a87cce40ac1555cb74d8a219.mp3', 'Pending', NULL, NULL, '2023-05-22 04:52:37'),
 (19, 15, 2, NULL, '64099d475e61082f9bfd7d425d1fada7.mp3', 'Pending', NULL, NULL, '2023-05-22 06:26:47'),
 (20, 21, 2, 5, 'e97325c513d97e169ddf61f61a481c31.mp3', 'Pending', NULL, NULL, '2023-05-28 07:07:57'),
-(21, 20, 2, 5, '0c9e613b1b7faf3ba58bb4d995d291c6.mp3', 'Approved', 44, '9bede884a9b5733ca6a08f8ca249b83b.mp3', '2023-05-30 04:55:30');
+(21, 20, 2, 5, '0c9e613b1b7faf3ba58bb4d995d291c6.mp3', 'Approved', 21, 'afff0568554a0af520558fb5b3b80ee6.mp3', '2023-05-30 04:55:30'),
+(22, 6, 2, NULL, '76d7391eb3070ed70a0cb295892b568e.mp3', 'Pending', NULL, NULL, '2023-05-31 14:03:40'),
+(23, 16, 2, NULL, 'eddf4e8a29344392f65d0ff01893929e.mp3', 'Pending', NULL, NULL, '2023-05-31 14:05:13'),
+(24, 16, 2, NULL, '02d2aa01d9c54dc0e1c39c0e4161d989.mp3', 'Pending', NULL, NULL, '2023-05-31 14:08:14'),
+(25, 16, 2, NULL, '06a45198378a9a34ab181b6cc3bc0bf6.mp3', 'Pending', NULL, NULL, '2023-05-31 14:10:36'),
+(26, 16, 2, NULL, 'c879c89e764ac680c56e62fa4fab86f6.mp3', 'Pending', NULL, NULL, '2023-05-31 14:10:53'),
+(27, 16, 2, NULL, 'addd1b28e27e616e5084fa2ba29a0152.mp3', 'Pending', NULL, NULL, '2023-05-31 14:11:29');
 
 -- --------------------------------------------------------
 
@@ -110,7 +116,13 @@ INSERT INTO `student_units` (`id`, `student_id`, `unit_id`) VALUES
 (7, 2, 16),
 (8, 2, 15),
 (9, 2, 21),
-(10, 2, 20);
+(10, 2, 20),
+(11, 2, 6),
+(12, 2, 16),
+(13, 2, 16),
+(14, 2, 16),
+(15, 2, 16),
+(16, 2, 16);
 
 -- --------------------------------------------------------
 
@@ -185,7 +197,7 @@ INSERT INTO `units` (`unit_id`, `unit_name`, `subject_id`, `content`, `file`, `t
 (1, 'Unit 1', 1, '11 22', NULL, 'Unit', '', NULL),
 (2, 'Unit 2', 1, '', NULL, 'Unit', '', NULL),
 (5, 'Unit 1', 3, '', NULL, 'Unit', '', NULL),
-(6, 'Unit 2', 3, '', NULL, 'Unit', '', NULL),
+(6, 'Unit 2', 3, 'What is your name?', NULL, 'Unit', '', NULL),
 (7, 'Eng 1', 4, '', NULL, 'Unit', '', NULL),
 (8, 'Eng 2', 4, '', NULL, 'Assessment\n', '', 'Pending'),
 (9, 'Math 1', 5, '', NULL, 'Unit', '', NULL),
@@ -281,7 +293,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `audio_responses`
 --
 ALTER TABLE `audio_responses`
-  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `response_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `courses`
@@ -293,7 +305,7 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `student_units`
 --
 ALTER TABLE `student_units`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `subjects`

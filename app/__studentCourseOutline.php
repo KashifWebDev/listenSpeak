@@ -16,6 +16,15 @@ $query = "SELECT courses.course_id, courses.course_name, subjects.subject_id, su
           LEFT JOIN units ON subjects.subject_id = units.subject_id
           ORDER BY courses.course_id, subjects.subject_id";
 
+//$query = "SELECT audio_responses.response_id, audio_responses.date_time, units.unit_name, users.fullName AS student_name, teachers.fullName AS teacher_name, audio_responses.audio_url, audio_responses.status
+//            FROM audio_responses
+//            JOIN units ON audio_responses.unit_id = units.unit_id
+//            JOIN users ON audio_responses.student_id = users.user_id AND users.user_type = 'Student'
+//            JOIN teacher_courses ON audio_responses.teacher_id = teacher_courses.teacher_id
+//            JOIN users AS teachers ON teacher_courses.teacher_id = teachers.user_id
+//            ORDER BY audio_responses.date_time DESC
+//            ";
+
 
 $result = mysqli_query($GLOBALS["con"], $query);
 
@@ -97,10 +106,29 @@ if ($result->num_rows > 0) {
                                                         echo 'No units found for this Subject';
                                                     }else{
                                                         foreach ($subject['units'] as $unitId => $unit) {
+                                                            $liClass = '';
+                                                            $uid = $unit['unit_id'];
+                                                            $sid = $_SESSION['id'];
+                                                            $a1 ="SELECT * FROM audio_responses WHERE unit_id=$uid AND student_id=$sid ORDER BY response_id DESC LIMIT 1";
+//                                                            echo $a1;
+                                                            $a2 = mysqli_query($GLOBALS["con"], $a1);
+                                                            if(mysqli_num_rows($a2)){
+                                                                $a3 = mysqli_fetch_array($a2);
+                                                                // Check if the unit ID matches the unit_id in the PHP array
+                                                                // Check if the status is 'Approved' and set the liClass accordingly
+                                                                if ($a3['status'] === 'Approved') {
+                                                                    $liClass = 'bg-success-light';
+                                                                }
+                                                                if ($a3['status'] === 'Rejected') {
+                                                                    $liClass = 'bg-danger-light';
+                                                                }
+//                                                                echo $unit['unit_name'].' -> '.$a3['status'].' | user ->'.$sid.' | '.' unit# -> '.$uid.' | '.' Audio# -> '.$a3['response_id'];
+                                                            }
                                                             ?>
                                                             <ol class="list-group">
-                                                                <li class="list-group-item d-flex justify-content-between align-items-start <?php if(studentUnit($unit['unit_id'])) echo "bg-success-light" ?>">
-                                                                    <?php if(studentUnit($unit['unit_id'])) echo '<i class="bi bi-check2-circle text-success fs-5"></i>'; ?>
+                                                                <li class="list-group-item d-flex justify-content-between align-items-start <?=$liClass?>">
+                                                                    <?php if($liClass == "bg-success-light") echo '<i class="bi bi-check2-circle text-success fs-5"></i>'; ?>
+                                                                    <?php if($liClass == "bg-danger-light") echo '<i class="bi bi-x-circle text-success fs-5"></i>'; ?>
                                                                     <div class="ms-2 me-auto">
                                                                         <div class="fw-bold">
                                                                             <a href="<?=root()?>student/submit/index.php?id=<?=$unit['unit_id']?>" class="text-black">

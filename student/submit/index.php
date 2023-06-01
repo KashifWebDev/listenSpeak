@@ -3,8 +3,6 @@ require '../../app/app.php';
 if(!isset($_SESSION["id"])){
     js_redirect('../../index.php');
 }
-
-
 if(isset($_POST["assign"])){
     $instructor_id = $_POST["instructor_id"] ?? null;
     $course_id = $_POST["course_id"] ?? null;
@@ -16,6 +14,16 @@ if(isset($_POST["assign"])){
         js_redirect("assign_instructors.php?success=1");
     }
 }
+
+
+$s = "SELECT * FROM units WHERE unit_id=".$_GET["id"];
+$s1 = mysqli_query($GLOBALS['con'], $s);
+$s2 = mysqli_fetch_array($s1);
+$desc = !empty($s2["content"]) ? $s2["content"] : '<i>No Description was added</i>';
+
+$s = "SELECT * FROM audio_responses WHERE unit_id=".$_GET["id"];
+$s1 = mysqli_query($GLOBALS['con'], $s);
+$audio_responses = mysqli_fetch_array($s1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,19 +90,28 @@ if(isset($_POST["assign"])){
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Activity Description:</h5>
-                        <p>
                             <?php
-                            $s = "SELECT * FROM units WHERE unit_id=".$_GET["id"];
-                            $s1 = mysqli_query($GLOBALS['con'], $s);
-                            $s2 = mysqli_fetch_array($s1);
-                            $desc = isset($s2["content"]) ? $s2["content"] : '<i>No Description was added</i>';
                             echo '
-                                <div class="activityContent">
+                                <div class="activityContent mb-3">
                                     '.$desc.'
                                 </div>
                             ';
                             ?>
-                        </p>
+
+                        <div class="row mb-3">
+                            <div class="col-md-10 mx-auto">
+                                <?php if($audio_responses['status'] == 'Rejected'){ ?>
+                                    <hr>
+                                    <div class="alert alert-danger alert-dismissible fade show mb-0 " role="alert">
+                                        Your last submission was rejected by your instructor!
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <p class="m-0 mt-2">Teacher's Response: </p>
+                                    <audio class="w-100" controls src="<?=root().'recordedAudios/'.$audio_responses['teacher_audio']?>"></audio>
+                                    <hr>
+                                <?php }?>
+                            </div>
+                        </div>
                         <div class="form-check" id="textToSpeech">
                             <input class="form-check-input" type="checkbox" id="showDivCheckbox1">
                             <label class="form-check-label" for="showDivCheckbox1">
@@ -240,10 +257,11 @@ if(isset($_POST["assign"])){
                                 <i class="bi bi-translate"></i>
                                 <span id="trans_text">Translate Now</span>
                             </button>
+                            <hr>
                         </div>
                         <?php
                         if(!empty($s2["file"]))
-                            echo '<a href="../../assets/img/units/'.$s2["file"].'" class="btn btn-primary mb-5"><i class="bi bi-download me-1"></i> Download File</a>';
+                            echo '<a href="../../assets/img/units/'.$s2["file"].'" class="btn btn-primary my-3"><i class="bi bi-download me-1"></i> Download Attachement</a>';
                         ?>
 
                         <hr>
