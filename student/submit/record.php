@@ -1,9 +1,14 @@
 <?php
+// Create an associative array to represent your data
+$output = array(
+    'status' => false
+);
+header('Content-Type: application/json');
+
 require '../../app/app.php';
 if(!isset($_SESSION["id"])){
     js_redirect('index.php');
 }
-print_r($_POST);
 ?>
 <?php
 if(isset($_FILES['fileName']) && $_FILES['fileName']){
@@ -13,7 +18,6 @@ if(isset($_FILES['fileName']) && $_FILES['fileName']){
     $_SESSION["fileName"] = $fileName;
 //    $target_path = root().'recordedAudios/' . $fileName;
     $target_path = UPLOAD_DIR.'recordedAudios/' . $fileName;
-    echo $target_path;
 
     if(move_uploaded_file($_FILES['fileName']['tmp_name'], $target_path)) {
         // echo "The file ". basename( $_FILES['fileName']['name']). " has been uploaded";
@@ -30,16 +34,18 @@ if(isset($_FILES['fileName']) && $_FILES['fileName']){
 
         $s = "INSERT INTO audio_responses (student_id, unit_id, audio_url, date_time) VALUES 
                    ($uid, $activity, '$audio', '$created_date')";
-        echo $s;
+
         if(mysqli_query($GLOBALS['con'], $s)){
-            js_redirect('../progress/index.php?uploaded=1');
+            $output['status'] = true;
         }else{
             echo "There was an error running qry!";
-            die(); exit();
+            $output['status'] = false;
         }
     } else{
         echo "There was an error uploading the file, please try again!";
-        die(); exit();
+        $output['status'] = false;
     }
 }
+$jsonResponse = json_encode($output);
+echo $jsonResponse;
 ?>

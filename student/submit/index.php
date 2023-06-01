@@ -19,8 +19,14 @@ if(isset($_POST["assign"])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <?php $title = "My Progress"; $path = '../../'; require_once '../../app/head.php'; ?>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include Bootstrap and Select2 JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 <body>
 
 <!-- ======= Header ======= -->
@@ -81,9 +87,160 @@ if(isset($_POST["assign"])){
                             $s = "SELECT * FROM units WHERE unit_id=".$_GET["id"];
                             $s1 = mysqli_query($GLOBALS['con'], $s);
                             $s2 = mysqli_fetch_array($s1);
-                            echo isset($s2["content"]) ? $s2["content"] : '<i>NIL</i>';
+                            $desc = isset($s2["content"]) ? $s2["content"] : '<i>No Description was added</i>';
+                            echo '
+                                <div class="activityContent">
+                                    '.$desc.'
+                                </div>
+                            ';
                             ?>
                         </p>
+                        <div class="form-check" id="textToSpeech">
+                            <input class="form-check-input" type="checkbox" id="showDivCheckbox1">
+                            <label class="form-check-label" for="showDivCheckbox1">
+                                Text to Speech
+                            </label>
+                        </div>
+                        <div class="mt-3" id="hiddenDiv1">
+                            <div class="spinner-border" role="status" id="loadingDiv">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <audio id="audioPlayer" controls></audio>
+                        </div>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="showDivCheckbox">
+                            <label class="form-check-label" for="showDivCheckbox">
+                                Translate the Activity Description?
+                            </label>
+                        </div>
+                        <div class="mt-3" id="hiddenDiv">
+                            <label class="mb-1">Select Language:</label>
+                            <select class="form-select" id="languageSelect" style="width: 100%">
+                                <?php
+                                // Language codes and names
+                                $languageCodesToNames = array(
+                                    "af" => "Afrikaans",
+                                    "am" => "Amharic",
+                                    "ar" => "Arabic",
+                                    "az" => "Azerbaijani",
+                                    "be" => "Belarusian",
+                                    "bg" => "Bulgarian",
+                                    "bn" => "Bengali",
+                                    "bs" => "Bosnian",
+                                    "ca" => "Catalan",
+                                    "ceb" => "Cebuano",
+                                    "co" => "Corsican",
+                                    "cs" => "Czech",
+                                    "cy" => "Welsh",
+                                    "da" => "Danish",
+                                    "de" => "German",
+                                    "el" => "Greek",
+                                    "en" => "English",
+                                    "eo" => "Esperanto",
+                                    "es" => "Spanish",
+                                    "et" => "Estonian",
+                                    "eu" => "Basque",
+                                    "fa" => "Persian",
+                                    "fi" => "Finnish",
+                                    "fr" => "French",
+                                    "fy" => "Frisian",
+                                    "ga" => "Irish",
+                                    "gd" => "Scottish Gaelic",
+                                    "gl" => "Galician",
+                                    "gu" => "Gujarati",
+                                    "ha" => "Hausa",
+                                    "haw" => "Hawaiian",
+                                    "hi" => "Hindi",
+                                    "hmn" => "Hmong",
+                                    "hr" => "Croatian",
+                                    "ht" => "Haitian Creole",
+                                    "hu" => "Hungarian",
+                                    "hy" => "Armenian",
+                                    "id" => "Indonesian",
+                                    "ig" => "Igbo",
+                                    "is" => "Icelandic",
+                                    "it" => "Italian",
+                                    "iw" => "Hebrew",
+                                    "ja" => "Japanese",
+                                    "jv" => "Javanese",
+                                    "ka" => "Georgian",
+                                    "kk" => "Kazakh",
+                                    "km" => "Khmer",
+                                    "kn" => "Kannada",
+                                    "ko" => "Korean",
+                                    "ku" => "Kurdish",
+                                    "ky" => "Kyrgyz",
+                                    "la" => "Latin",
+                                    "lb" => "Luxembourgish",
+                                    "lo" => "Lao",
+                                    "lt" => "Lithuanian",
+                                    "lv" => "Latvian",
+                                    "mg" => "Malagasy",
+                                    "mi" => "Maori",
+                                    "mk" => "Macedonian",
+                                    "ml" => "Malayalam",
+                                    "mn" => "Mongolian",
+                                    "mr" => "Marathi",
+                                    "ms" => "Malay",
+                                    "mt" => "Maltese",
+                                    "my" => "Burmese",
+                                    "ne" => "Nepali",
+                                    "nl" => "Dutch",
+                                    "no" => "Norwegian",
+                                    "ny" => "Chichewa",
+                                    "or" => "Oriya",
+                                    "pa" => "Punjabi",
+                                    "pl" => "Polish",
+                                    "ps" => "Pashto",
+                                    "pt" => "Portuguese",
+                                    "ro" => "Romanian",
+                                    "ru" => "Russian",
+                                    "rw" => "Kinyarwanda",
+                                    "sd" => "Sindhi",
+                                    "si" => "Sinhala",
+                                    "sk" => "Slovak",
+                                    "sl" => "Slovenian",
+                                    "sm" => "Samoan",
+                                    "sn" => "Shona",
+                                    "so" => "Somali",
+                                    "sq" => "Albanian",
+                                    "sr" => "Serbian",
+                                    "st" => "Sesotho",
+                                    "su" => "Sundanese",
+                                    "sv" => "Swedish",
+                                    "sw" => "Swahili",
+                                    "ta" => "Tamil",
+                                    "te" => "Telugu",
+                                    "tg" => "Tajik",
+                                    "th" => "Thai",
+                                    "tk" => "Turkmen",
+                                    "tl" => "Filipino",
+                                    "tr" => "Turkish",
+                                    "tt" => "Tatar",
+                                    "ug" => "Uyghur",
+                                    "uk" => "Ukrainian",
+                                    "ur" => "Urdu",
+                                    "uz" => "Uzbek",
+                                    "vi" => "Vietnamese",
+                                    "xh" => "Xhosa",
+                                    "yi" => "Yiddish",
+                                    "yo" => "Yoruba",
+                                    "zh-CN" => "Chinese (Simplified)",
+                                    "zh-TW" => "Chinese (Traditional)",
+                                    "zu" => "Zulu"
+                                );
+
+                                // Generate options for the select dropdown
+                                foreach ($languageCodesToNames as $code => $name) {
+                                    echo "<option value='$code'>$name</option>";
+                                }
+                                ?>
+                            </select>
+                            <button id="translateBtn" type="button" class="btn btn-primary mt-2 ms-2">
+                                <i class="bi bi-translate"></i>
+                                <span id="trans_text">Translate Now</span>
+                            </button>
+                        </div>
                         <?php
                         if(!empty($s2["file"]))
                             echo '<a href="../../assets/img/units/'.$s2["file"].'" class="btn btn-primary mb-5"><i class="bi bi-download me-1"></i> Download File</a>';
@@ -123,9 +280,132 @@ if(isset($_POST["assign"])){
 
 </main><!-- End #main -->
 
+
 <!-- ======= Footer ======= -->
 <?php require_once '../../app/footer.php'; ?>
 <!-- End Footer -->
+
+
+
+<script>
+    document.getElementById("translateBtn").onclick = function () {
+        $('.activityContent').text('----- Translating... -----');
+        $('#trans_text').text("Translating...");
+        const settings = {
+            async: true,
+            crossDomain: true,
+            url: 'https://google-translate1.p.rapidapi.com/language/translate/v2',
+            method: 'POST',
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Accept-Encoding': 'application/gzip',
+                'X-RapidAPI-Key': '33531d20c8msh9b9efc2b4fafa93p116c3fjsnc274a24bf5a4',
+                'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
+            },
+            data: {
+                q: '<?=$s2["content"]?>',
+                target: $('#languageSelect').find(":selected").val(),
+                source: 'en'
+            }
+        };
+
+        $.ajax(settings).done(function (response) {
+            $('#trans_text').text("Translate Now");
+            $('.activityContent').text(response.data.translations[0].translatedText);
+            console.log(response);
+        });
+    };
+    document.getElementById("textToSpeech").onclick = function () {
+        hitAPIs();
+    };
+
+    function hitAPIs() {
+        console.log( "HITTIN GFIRST");
+        const settings = {
+            async: true,
+            crossDomain: true,
+            url: 'https://large-text-to-speech.p.rapidapi.com/tts',
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'X-RapidAPI-Key': '4e482e57f8msh1b3110cedc5e85bp1af4bajsn90ba2eaedd96',
+                'X-RapidAPI-Host': 'large-text-to-speech.p.rapidapi.com'
+            },
+            processData: false,
+            data: '{\r\n    "text": "<?=$desc?>"\r\n}'
+        };
+
+        $.ajax(settings).done(function (response) {
+            hitSecondAPI(response.id);
+        });
+    }
+
+    function hitSecondAPI(id) {
+        const settings = {
+            async: true,
+            crossDomain: true,
+            url: 'https://large-text-to-speech.p.rapidapi.com/tts?id='+id,
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '4e482e57f8msh1b3110cedc5e85bp1af4bajsn90ba2eaedd96',
+                'X-RapidAPI-Host': 'large-text-to-speech.p.rapidapi.com'
+            }
+        };
+
+
+        $.ajax(settings).done(function (response) {  setTimeout(() => {
+            $.ajax(settings).done(function (response) {
+                if (response.status === 'success') {
+                    console.log(response);
+                    $("#loadingDiv").hide();
+                    $("#audioPlayer").show();
+                    var audioPlayer = $('#audioPlayer');
+                    audioPlayer.attr('src', response.url);
+                    console.log(response);
+                } else {
+                    // Status is not success, retry the first API call
+                    hitSecondAPI(id);
+                }
+            });
+        }, 1500)
+            // $("#loadingDiv").hide();
+            // $("#audioPlayer").show();
+            // var audioPlayer = $('#audioPlayer');
+            // audioPlayer.attr('src', response.url);
+            // console.log(response);
+        });
+    }
+
+
+
+
+
+    // Initialize Select2
+    $(document).ready(function() {
+        $('#languageSelect').select2();
+    });
+
+    $("#hiddenDiv1").hide();
+    $("#showDivCheckbox1").click(function() {
+        if($(this).is(":checked")) {
+            $("#hiddenDiv1").show(300);
+        } else {
+            $("#hiddenDiv1").hide(200);
+        }
+    });
+
+    $("#hiddenDiv").hide();
+    $("#showDivCheckbox").click(function() {
+        if($(this).is(":checked")) {
+            $("#hiddenDiv").show(300);
+        } else {
+            $("#hiddenDiv").hide(200);
+        }
+    });
+    $("#audioPlayer").hide();
+</script>
+
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
 <script src="https://markjivko.com/dist/recorder.js"></script>
@@ -317,9 +597,16 @@ if(isset($_POST["assign"])){
                     var xhr = new XMLHttpRequest();
 
                     xhr.open( 'POST', 'record.php', true );
-                    xhr.onreadystatechange = function ( response ) {};
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Handle the response here
+                            var jsonResponse = JSON.parse(xhr.responseText);
+                            if(jsonResponse.status){
+                                window.location.replace('<?=root()?>student/progress/index.php?uploaded=1');
+                            }
+                        }
+                    };
                     xhr.send( fd );
-                    window.location.replace('<?=root()?>student/progress/index.php?uploaded=1');
 
                 });
 
