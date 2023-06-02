@@ -100,7 +100,7 @@ $audio_responses = mysqli_fetch_array($s1);
 
                         <div class="row mb-3">
                             <div class="col-md-10 mx-auto">
-                                <?php if($audio_responses['status'] == 'Rejected'){ ?>
+                                <?php if(isset($audio_responses['status']) && $audio_responses['status'] == 'Rejected'){ ?>
                                     <hr>
                                     <div class="alert alert-danger alert-dismissible fade show mb-0 " role="alert">
                                         Your last submission was rejected by your instructor!
@@ -346,7 +346,7 @@ $audio_responses = mysqli_fetch_array($s1);
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                'X-RapidAPI-Key': '4e482e57f8msh1b3110cedc5e85bp1af4bajsn90ba2eaedd96',
+                'X-RapidAPI-Key': '33531d20c8msh9b9efc2b4fafa93p116c3fjsnc274a24bf5a4',
                 'X-RapidAPI-Host': 'large-text-to-speech.p.rapidapi.com'
             },
             processData: false,
@@ -365,7 +365,7 @@ $audio_responses = mysqli_fetch_array($s1);
             url: 'https://large-text-to-speech.p.rapidapi.com/tts?id='+id,
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '4e482e57f8msh1b3110cedc5e85bp1af4bajsn90ba2eaedd96',
+                'X-RapidAPI-Key': '33531d20c8msh9b9efc2b4fafa93p116c3fjsnc274a24bf5a4',
                 'X-RapidAPI-Host': 'large-text-to-speech.p.rapidapi.com'
             }
         };
@@ -381,11 +381,12 @@ $audio_responses = mysqli_fetch_array($s1);
                     audioPlayer.attr('src', response.url);
                     console.log(response);
                 } else {
+                    console.log(response);
                     // Status is not success, retry the first API call
                     hitSecondAPI(id);
                 }
             });
-        }, 1500)
+        }, 2000)
             // $("#loadingDiv").hide();
             // $("#audioPlayer").show();
             // var audioPlayer = $('#audioPlayer');
