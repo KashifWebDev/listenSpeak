@@ -4,7 +4,7 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
     gotoDashboard();
 }
     if(isset($_POST["login"])){
-        require 'app/db.php';
+//        require 'app/db.php';
         $email = $_POST["email"];
         $pass = $_POST["pass"];
         $qry = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
