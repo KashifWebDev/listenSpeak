@@ -7,8 +7,7 @@ require 'db.php';
 date_default_timezone_set('Africa/Johannesburg');
 
 //checkIfUserLoggedIn();
-$_SESSION["appAddress"] = "http://abcdatabase.online/";
-$_SESSION["appAddress"] = "http://abcdatabase.online/";
+$_SESSION["appAddress"] = "https://lms.kashifali.me/";
 $GLOBALS["prod"] = true;
 
 if ($_SERVER['HTTP_HOST'] === 'localhost' || substr($_SERVER['HTTP_HOST'], 0, 9) === '127.0.0.1') {
@@ -18,7 +17,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || substr($_SERVER['HTTP_HOST'], 0, 9)
 }
 
 	function root(): string{
-		return $GLOBALS["prod"] == true ? "http://abcdatabase.online/" : "http://localhost/listenSpeak/";
+		return $GLOBALS["prod"] == true ? "https://lms.kashifali.me/" : "http://localhost/listenSpeak/";
 	}
 	function js_alert($msg){
 		echo '
