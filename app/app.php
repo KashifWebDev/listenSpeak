@@ -8,7 +8,7 @@ date_default_timezone_set('Africa/Johannesburg');
 //checkIfUserLoggedIn();
 $_SESSION["appAddress"] = "http://abcdatabase.online/";
 $_SESSION["appAddress"] = "http://abcdatabase.online/";
-$GLOBALS["prod"] = false;
+$GLOBALS["prod"] = true;
 
 	function root(): string{
 		return $GLOBALS["prod"] == true ? "http://abcdatabase.online/" : "http://localhost/listenSpeak/";
