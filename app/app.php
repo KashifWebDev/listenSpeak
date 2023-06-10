@@ -11,6 +11,12 @@ $_SESSION["appAddress"] = "http://abcdatabase.online/";
 $_SESSION["appAddress"] = "http://abcdatabase.online/";
 $GLOBALS["prod"] = true;
 
+if ($_SERVER['HTTP_HOST'] === 'localhost' || substr($_SERVER['HTTP_HOST'], 0, 9) === '127.0.0.1') {
+    $GLOBALS["prod"] = false;
+} else {
+    $GLOBALS["prod"] = true;
+}
+
 	function root(): string{
 		return $GLOBALS["prod"] == true ? "http://abcdatabase.online/" : "http://localhost/listenSpeak/";
 	}
