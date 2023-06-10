@@ -321,7 +321,7 @@ $audio_responses = mysqli_fetch_array($s1);
                 'X-RapidAPI-Host': 'google-translate1.p.rapidapi.com'
             },
             data: {
-                q: filterData('<?=$s2["content"]?>'),
+                q: filterData(),
                 target: $('#languageSelect').find(":selected").val(),
                 source: 'en'
             }
@@ -339,7 +339,6 @@ $audio_responses = mysqli_fetch_array($s1);
 
     function hitAPIs() {
         console.log( "HITTIN GFIRST");
-        let data = filterData("<?=$desc?>");
         const settings = {
             async: true,
             crossDomain: true,
@@ -351,7 +350,7 @@ $audio_responses = mysqli_fetch_array($s1);
                 'X-RapidAPI-Host': 'large-text-to-speech.p.rapidapi.com'
             },
             processData: false,
-            data: '{\r\n    "text": "'+data+'"\r\n}'
+            data: `{\r\n    "text": "${filterData()}"\r\n}`
         };
 
         $.ajax(settings).done(function (response) {
@@ -387,7 +386,7 @@ $audio_responses = mysqli_fetch_array($s1);
                     hitSecondAPI(id);
                 }
             });
-        }, 2000)
+        }, 3000)
             // $("#loadingDiv").hide();
             // $("#audioPlayer").show();
             // var audioPlayer = $('#audioPlayer');
@@ -424,7 +423,10 @@ $audio_responses = mysqli_fetch_array($s1);
     });
     $("#audioPlayer").hide();
 
-    function filterData(str) {
+    function filterData() {
+        var str = `<?=$s2["content"]?>`;
+        var str = str.replace(/\r?\n/g, " ");
+        console.log(str.replace(/'/g, "\\'"));
         return str.replace(/'/g, "\\'");
     }
 </script>
