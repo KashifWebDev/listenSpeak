@@ -95,7 +95,7 @@ if ($result->num_rows > 0) {
                                                                         </div>
                                                                     </div>
                                                                     <div>
-                                                                        <a class="btn btn-primary rounded-pill" href="<?=root()?>admin/units/edit_unit.php?unit=<?=$unit['unit_id']?>">
+                                                                        <a class="btn btn-primary rounded-pill" href="<?=root()?>manager/units/edit_unit.php?unit=<?=$unit['unit_id']?>">
                                                                             <i class="bi bi-pencil-fill"></i>
                                                                         </a>
                                                                         <button type="button" class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#edit_modal_3">

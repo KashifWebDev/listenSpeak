@@ -69,13 +69,21 @@ function dateTime($dateString){
                             <tbody>
                             <?php
                             $uid = $_SESSION["id"];
-                            $s = "SELECT DISTINCT audio_responses.response_id, audio_responses.date_time, units.unit_name, users.fullName AS student_name, teachers.fullName AS teacher_name, audio_responses.audio_url, audio_responses.status
-                                    FROM audio_responses
-                                    JOIN units ON audio_responses.unit_id = units.unit_id
-                                    JOIN users ON audio_responses.student_id = users.user_id AND users.user_type = 'Student'
-                                    JOIN teacher_courses ON audio_responses.teacher_id = teacher_courses.teacher_id
-                                    JOIN users AS teachers ON teacher_courses.teacher_id = teachers.user_id
-                                    WHERE audio_responses.teacher_id = $uid";
+                            $s = "SELECT DISTINCT
+                                        audio_responses.response_id,
+                                        audio_responses.date_time,
+                                        units.unit_name,
+                                        users.fullName AS student_name,
+                                        users.fullName AS teacher_name,
+                                        audio_responses.audio_url,
+                                        audio_responses.status
+                                    FROM
+                                        audio_responses
+                                    JOIN
+                                        units ON audio_responses.unit_id = units.unit_id
+                                    JOIN
+                                        users ON audio_responses.student_id = users.user_id AND users.user_type = 'Student'
+                                    ";
                             $res = mysqli_query($GLOBALS['con'], $s);
                             if(mysqli_num_rows($res)){
                                 $count = 1;

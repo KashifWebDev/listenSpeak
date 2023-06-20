@@ -89,7 +89,8 @@ $audio_responses = mysqli_fetch_array($s1);
             <div class="col-sm-12 col-md-6 mx-md-auto">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Activity Description:</h5>
+                        <h5 class="card-title"><?=$s2['unit_id'].'. '.$s2['unit_name']?></h5>
+                        <h5 class="text-primary fw-bold">Activity Content:</h5>
                             <?php
                             echo '
                                 <div class="activityContent mb-3">
@@ -97,13 +98,25 @@ $audio_responses = mysqli_fetch_array($s1);
                                 </div>
                             ';
                             ?>
+                        <h5 class="text-primary fw-bold">Audio Content:</h5>
+                        <audio class="w-100" controls src="<?=root().'recordedAudios/'.$s2['audio']?>"></audio>
 
                         <div class="row mb-3">
                             <div class="col-md-10 mx-auto">
                                 <?php if(isset($audio_responses['status']) && $audio_responses['status'] == 'Rejected'){ ?>
                                     <hr>
                                     <div class="alert alert-danger alert-dismissible fade show mb-0 " role="alert">
-                                        Your last submission was rejected by your instructor!
+                                        Your last submission was rejected by an instructor!
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <p class="m-0 mt-2">Teacher's Response: </p>
+                                    <audio class="w-100" controls src="<?=root().'recordedAudios/'.$audio_responses['teacher_audio']?>"></audio>
+                                    <hr>
+                                <?php }?>
+                                <?php if(isset($audio_responses['status']) && $audio_responses['status'] == 'Approved'){ ?>
+                                    <hr>
+                                    <div class="alert alert-success alert-dismissible fade show mb-0 " role="alert">
+                                        Your last submission was approved by an instructor!
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                     <p class="m-0 mt-2">Teacher's Response: </p>

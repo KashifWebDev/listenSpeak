@@ -43,6 +43,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || substr($_SERVER['HTTP_HOST'], 0, 9)
             if($_SESSION["userType"]=="Student") js_redirect('student/dashboard');
             if($_SESSION["userType"]=="Admin") js_redirect('admin/dashboard');
             if($_SESSION["userType"]=="Teacher") js_redirect('teacher/dashboard');
+            if($_SESSION["userType"]=="Manager") js_redirect('manager/dashboard');
         }else{
 	        $_SESSION["loginRequired"] = true;
             js_redirect("index.php?no");
