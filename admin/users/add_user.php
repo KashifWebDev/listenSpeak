@@ -11,9 +11,10 @@ if(isset($_POST["add"])){
     $country = $_POST["country"] ?? null;
     $phone = $_POST["phone"] ?? null;
     $address = $_POST["address"] ?? null;
+    $level = $_POST["level"] ?? null;
 
-    $sql = "INSERT INTO users(email, user_type, fullName, pass, address, phone, country) 
-            VALUES ('$email', '$user_type', '$name', '$pass', '$address', '$phone', '$country')";
+    $sql = "INSERT INTO users(email, user_type, fullName, pass, address, phone, country, level) 
+            VALUES ('$email', '$user_type', '$name', '$pass', '$address', '$phone', '$country', '$level')";
     $res = mysqli_query($GLOBALS["con"],$sql);
     if($res){
         js_redirect("add_user.php?success=1");
@@ -97,11 +98,29 @@ if(isset($_POST["add"])){
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="inputPassword" class="col-sm-3 col-form-label">Country</label>
+                                <label for="inputEmail3" class="col-sm-3 col-form-label">Select Level</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="inputText" required name="country" >
+                                    <select class="form-select" aria-label="Default select example" name="level" required>
+                                        <option value="Foundation 1">Foundation 1</option>
+                                        <option value="Foundation 2">Foundation 2</option>
+                                        <option value="Foundation 3">Foundation 3</option>
+                                        <option value="Basic 1">Basic 1</option>
+                                        <option value="Basic 2">Basic 2</option>
+                                        <option value="Intermediate 1">Intermediate 1</option>
+                                        <option value="Intermediate 2">Intermediate 2</option>
+                                        <option value="Advanced 1">Advanced 1</option>
+                                        <option value="Advanced 1">Advanced 1</option>
+                                        <option value="Student">Student</option>
+                                        <option value="Teacher">Teacher</option>
+                                    </select>
                                 </div>
                             </div>
+<!--                            <div class="row mb-3">-->
+<!--                                <label for="inputPassword" class="col-sm-3 col-form-label">Country</label>-->
+<!--                                <div class="col-sm-9">-->
+<!--                                    <input type="text" class="form-control" id="inputText" required name="country" >-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="row mb-3">
                                 <label for="inputPassword" class="col-sm-3 col-form-label">Contact Number</label>
                                 <div class="col-sm-9">

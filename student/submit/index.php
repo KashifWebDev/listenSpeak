@@ -89,7 +89,7 @@ $audio_responses = mysqli_fetch_array($s1);
             <div class="col-sm-12 col-md-6 mx-md-auto">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"><?=$s2['unit_id'].'. '.$s2['unit_name']?></h5>
+                        <h5 class="card-title"><?="Unit #".$s2['unit_id']."<span class='fw-bolder fs-5 text-black'>      ".$s2['unit_name']?></span></h5>
                         <h5 class="text-primary fw-bold">Activity Content:</h5>
                             <?php
                             echo '

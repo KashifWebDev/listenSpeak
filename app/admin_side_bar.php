@@ -18,52 +18,6 @@ $menu = array(
         'link' => 'admin/dashboard'
     ),
     array(
-        'title' => 'Courses',
-        'icon' => 'bi bi-book',
-        'sub_menu' => array(
-            array(
-                'title' => 'Manage Courses',
-                'link' => 'admin/courses/manage_courses.php'
-            ),
-            array(
-                'title' => 'Add New Course',
-                'link' => 'admin/courses/add_course.php'
-            ),
-            array(
-                'title' => 'Assign Instructors',
-                'link' => 'admin/courses/assign_instructors.php'
-            )
-        )
-    ),
-    array(
-        'title' => 'Subjects',
-        'icon' => 'bi bi-journal-text',
-        'sub_menu' => array(
-            array(
-                'title' => 'Manage Subjects',
-                'link' => 'admin/subjects/manage_subjects.php'
-            ),
-            array(
-                'title' => 'Add New Subject',
-                'link' => 'admin/subjects/add_subject.php'
-            )
-        )
-    ),
-    array(
-        'title' => 'Units',
-        'icon' => 'bi bi-grid',
-        'sub_menu' => array(
-            array(
-                'title' => 'Manage Units',
-                'link' => 'admin/units/manage_units.php'
-            ),
-            array(
-                'title' => 'Add New Unit',
-                'link' => 'admin/units/add_unit.php'
-            )
-        )
-    ),
-    array(
         'title' => 'Users',
         'icon' => 'bi bi-people',
         'sub_menu' => array(

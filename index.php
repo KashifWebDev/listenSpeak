@@ -3,6 +3,29 @@ require 'app/app.php';
 if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
     gotoDashboard();
 }
+
+
+function get_client_ip(){
+    $ipaddress = '';
+    if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+        $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+    } else if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else if (isset($_SERVER['HTTP_X_FORWARDED'])) {
+        $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+    } else if (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+        $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+    } else if (isset($_SERVER['HTTP_FORWARDED'])) {
+        $ipaddress = $_SERVER['HTTP_FORWARDED'];
+    } else if (isset($_SERVER['REMOTE_ADDR'])) {
+        $ipaddress = $_SERVER['REMOTE_ADDR'];
+    } else {
+        $ipaddress = 'UNKNOWN';
+    }
+
+    return $ipaddress;
+}
+
     if(isset($_POST["login"])){
 //        require 'app/db.php';
         $email = $_POST["email"];
@@ -10,6 +33,22 @@ if(isset($_SESSION["loginRequired"]) && !$_SESSION["loginRequired"]){
         $qry = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
         $res = mysqli_query($con, $qry);
         if(mysqli_num_rows($res)){
+//            $PublicIP = get_client_ip();
+//            $json     = file_get_contents("http://ipinfo.io/$PublicIP/geo");
+//            $json     = json_decode($json, true);
+//            $country  = $json['country'];
+//            $region   = $json['region'];
+//            $city     = $json['city'];
+
+            $realIP = file_get_contents("http://ipecho.net/plain");
+            $geo = unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$realIP"));
+            $country = $geo["geoplugin_countryName"];
+            $city = $geo["geoplugin_city"];
+
+            $s = "UPDATE users SET country='$country', city='$city' WHERE email='$email'";
+            mysqli_query($con, $s);
+
+
             $row = mysqli_fetch_array($res);
             $_SESSION["id"] = $row["user_id"];
             $_SESSION["fullName"] = $row["fullName"];
