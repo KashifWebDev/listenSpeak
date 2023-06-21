@@ -43,6 +43,8 @@ if(!isset($_SESSION["id"])){
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">City</th>
                                 <th scope="col">User Type</th>
                                 <th scope="col">Actions</th>
                             </tr>
@@ -63,6 +65,12 @@ if(!isset($_SESSION["id"])){
                                         </td>
                                         <td>
                                             <?=$row["email"]?>
+                                        </td>
+                                        <td>
+                                            <?=$row["country"]?>
+                                        </td>
+                                        <td>
+                                            <?=$row["city"]?>
                                         </td>
                                         <td>
                                             <span class="badge bg-<?=$row["user_type"]=='Student' ? 'info' : 'success'?>"><?=$row["user_type"]?></span>
