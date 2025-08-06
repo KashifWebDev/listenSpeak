@@ -141,7 +141,7 @@ $audio_responses = mysqli_fetch_array($s1);
                                         <div id="conversationLog" class="border rounded p-2 mt-2" style="height:150px; overflow:auto;"></div>
                                     </div>
                                     <script>
-                                        const openAiKey = "<?=getenv('OPENAI_API_KEY')?>";
+                                        const openAiKey = "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";
                                         const gptInstructions = <?=json_encode($s2['gpt_instructions'] ?? '')?>;
                                         let convMessages = [{role:'system',content:`You are a friendly tutor. ${gptInstructions} The student must answer in full sentences. Correct the student if the answer is wrong and ask them to repeat the corrected answer. Use praise as much as possible.`}];
                                         const startBtn = document.getElementById('startConversation');
@@ -154,7 +154,7 @@ $audio_responses = mysqli_fetch_array($s1);
 
                                         function appendLog(role,text){
                                             const p=document.createElement('p');
-                                            p.textContent=(role==='assistant'?'AI: ':'You: ')+text;
+                                            p.innerHTML=(role==='assistant'?'<b>AI:</b> ':'<b>You:</b> ')+text;
                                             logDiv.appendChild(p);
                                             logDiv.scrollTop=logDiv.scrollHeight;
                                         }

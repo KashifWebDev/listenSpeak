@@ -2,3 +2,5 @@ recordedAudios
 .idea
 assets/files
 app/db.php
+/.env
+.env
