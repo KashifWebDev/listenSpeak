@@ -11,6 +11,7 @@ if(isset($_POST["addUnit"])){
     $course = !empty($_POST["course"]) ? $_POST["course"] : null;
     $subject = !empty($_POST["subject"]) ? $_POST["subject"] : null;
     $content = !empty($_POST["content"]) ? $_POST["content"] : null;
+    $gptInstructions = !empty($_POST["gptInstructions"]) ? $_POST["gptInstructions"] : null;
     $picture = null;
 
     if(!empty($_FILES['image']['name'])){
@@ -25,8 +26,8 @@ if(isset($_POST["addUnit"])){
         move_uploaded_file($_FILES["image"]["tmp_name"],$bannerpath);
     }
 
-    $sql = "INSERT INTO units(unit_name, subject_id, content,file, type, link) 
-            VALUES ('$unitName', $subject, '$content', '$picture', '$unitType', '$link')";
+    $sql = "INSERT INTO units(unit_name, subject_id, content,file, type, link, gpt_instructions)
+            VALUES ('$unitName', $subject, '$content', '$picture', '$unitType', '$link', '$gptInstructions')";
     $res = mysqli_query($GLOBALS["con"],$sql);
     if($res){
         js_redirect("add_unit.php?success=1");
@@ -190,6 +191,11 @@ if(isset($_POST["addUnit"])){
                                 </div>
                             </div>
                             <div id="unitFields" style="display: none;">
+                                <div class="form-group my-3">
+                                    <label for="gptInstructions">GPT Instructions</label>
+                                    <textarea name="gptInstructions" class="form-control" placeholder="Guidance for the AI tutor" style="height: 150px;"></textarea>
+                                    <small class="text-muted">These notes will be provided to ChatGPT when students practice this unit.</small>
+                                </div>
                             </div>
                             <div id="assessmentFields" style="display: none;">
                                 <div class="form-group mb-3">
