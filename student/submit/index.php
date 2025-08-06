@@ -141,7 +141,11 @@ $audio_responses = mysqli_fetch_array($s1);
                                         <div id="conversationLog" class="border rounded p-2 mt-2" style="height:150px; overflow:auto;"></div>
                                     </div>
                                     <script>
-                                        const openAiKey = "<?=getenv('OPENAI_API_KEY')?>";
+                                        <?php require '../../vendor/autoload.php';
+                                        $dotenv = Dotenv\Dotenv::createImmutable("../../");
+                                        $dotenv->Load();?>
+
+                                        const openAiKey = "<?php echo $_ENV['OPENAI_API_KEY'] ?>";
                                         const gptInstructions = <?=json_encode($s2['gpt_instructions'] ?? '')?>;
                                         let convMessages = [{role:'system',content:`You are a friendly tutor. ${gptInstructions} The student must answer in full sentences. Correct the student if the answer is wrong and ask them to repeat the corrected answer. Use praise as much as possible.`}];
                                         const startBtn = document.getElementById('startConversation');
@@ -168,7 +172,7 @@ $audio_responses = mysqli_fetch_array($s1);
                                         async function callGPT(){
                                             const res=await fetch('https://api.openai.com/v1/chat/completions',{
                                                 method:'POST',
-                                                headers:{'Content-Type':'application/json','Authorization':'Bearer '+<?=$apiToken?>},
+                                                headers:{'Content-Type':'application/json','Authorization':'Bearer '+openAiKey},
                                                 body:JSON.stringify({model:'gpt-3.5-turbo',messages:convMessages})
                                             });
                                             const data=await res.json();
