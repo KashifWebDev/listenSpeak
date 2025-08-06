@@ -3,6 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 require 'db.php';
+$apiToken = "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";
 
 date_default_timezone_set('Africa/Johannesburg');
 
