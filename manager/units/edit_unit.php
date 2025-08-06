@@ -24,14 +24,15 @@ if(isset($_POST["addUnit"])){
     $course = !empty($_POST["course"]) ? $_POST["course"] : null;
     $subject = !empty($_POST["subject"]) ? $_POST["subject"] : null;
     $content = !empty($_POST["content"]) ? $_POST["content"] : null;
+    $gptInstructions = !empty($_POST["gptInstructions"]) ? $_POST["gptInstructions"] : null;
 
     if($unitType == 'Assessment'){
         $sql = "UPDATE units 
         SET unit_name = '$unitName', link = '$link' WHERE unit_id = $unit";
     }
     if($unitType == 'Unit'){
-        $sql = "UPDATE units 
-        SET unit_name = '$unitName', content = '$content' WHERE unit_id = $unit";
+        $sql = "UPDATE units
+        SET unit_name = '$unitName', content = '$content', gpt_instructions = '$gptInstructions' WHERE unit_id = $unit";
     }
     $res = mysqli_query($GLOBALS["con"],$sql);
     if($res){
@@ -100,6 +101,10 @@ function getSubjectName($id): string{
                                 <div class="form-group mb-3">
                                     <label for="description">Content</label>
                                     <textarea name="content" class="form-control" placeholder="Unit Content" id="floatingTextarea" style="height: 100px;"><?=$unitRow['content']?></textarea>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="gptInstructions">GPT Instructions</label>
+                                    <textarea name="gptInstructions" class="form-control" placeholder="Guidance for the AI tutor" style="height: 100px;"><?=$unitRow['gpt_instructions']?></textarea>
                                 </div>
                             </div>
                             <?php } ?>

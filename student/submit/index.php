@@ -135,6 +135,75 @@ $audio_responses = mysqli_fetch_array($s1);
                             </h2>
                             <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
+                                    <div id="gpt-conversation" class="mb-3">
+                                        <button id="startConversation" class="btn btn-success me-2">Start AI Practice</button>
+                                        <button id="stopConversation" class="btn btn-danger me-2" style="display:none;">Stop Conversation</button>
+                                        <div id="conversationLog" class="border rounded p-2 mt-2" style="height:150px; overflow:auto;"></div>
+                                    </div>
+                                    <script>
+                                        const openAiKey = "<?=getenv('OPENAI_API_KEY')?>";
+                                        const gptInstructions = <?=json_encode($s2['gpt_instructions'] ?? '')?>;
+                                        let convMessages = [{role:'system',content:`You are a friendly tutor. ${gptInstructions} The student must answer in full sentences. Correct the student if the answer is wrong and ask them to repeat the corrected answer. Use praise as much as possible.`}];
+                                        const startBtn = document.getElementById('startConversation');
+                                        const stopBtn = document.getElementById('stopConversation');
+                                        const logDiv = document.getElementById('conversationLog');
+                                        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                                        recognition.lang = 'en-US';
+                                        recognition.interimResults = false;
+                                        let conversationActive = false;
+
+                                        function appendLog(role,text){
+                                            const p=document.createElement('p');
+                                            p.textContent=(role==='assistant'?'AI: ':'You: ')+text;
+                                            logDiv.appendChild(p);
+                                            logDiv.scrollTop=logDiv.scrollHeight;
+                                        }
+
+                                        function speak(text){
+                                            const utter=new SpeechSynthesisUtterance(text);
+                                            utter.onend=()=>{ if(conversationActive) recognition.start(); };
+                                            speechSynthesis.speak(utter);
+                                        }
+
+                                        async function callGPT(){
+                                            const res=await fetch('https://api.openai.com/v1/chat/completions',{
+                                                method:'POST',
+                                                headers:{'Content-Type':'application/json','Authorization':'Bearer '+openAiKey},
+                                                body:JSON.stringify({model:'gpt-3.5-turbo',messages:convMessages})
+                                            });
+                                            const data=await res.json();
+                                            const msg=data.choices[0].message.content.trim();
+                                            convMessages.push({role:'assistant',content:msg});
+                                            appendLog('assistant',msg);
+                                            speak(msg);
+                                            if(/(goodbye|bye|end of conversation)/i.test(msg)){ 
+                                                conversationActive=false;
+                                                stopBtn.style.display='none';
+                                                startBtn.style.display='inline-block';
+                                            }
+                                        }
+
+                                        recognition.onresult=async e=>{
+                                            const text=e.results[0][0].transcript;
+                                            convMessages.push({role:'user',content:text});
+                                            appendLog('user',text);
+                                            await callGPT();
+                                        };
+
+                                        startBtn.onclick=()=>{
+                                            startBtn.style.display='none';
+                                            stopBtn.style.display='inline-block';
+                                            convMessages.push({role:'user',content:'Begin'});
+                                            conversationActive = true;
+                                            callGPT();
+                                        };
+                                        stopBtn.onclick=()=>{
+                                            recognition.stop();
+                                            conversationActive = false;
+                                            stopBtn.style.display='none';
+                                            startBtn.style.display='inline-block';
+                                        };
+                                    </script>
                                     <script type="text/javascript" src="https://code.jquery.com/jquery.min.js"></script>
                                     <script src="https://markjivko.com/dist/recorder.js"></script>
                                     <script>

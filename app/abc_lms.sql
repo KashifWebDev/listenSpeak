@@ -186,33 +186,34 @@ CREATE TABLE `units` (
   `file` varchar(100) DEFAULT NULL,
   `type` varchar(100) NOT NULL DEFAULT 'Lesson',
   `link` varchar(100) DEFAULT NULL,
-  `status` enum('Pass','Fail','Pending') DEFAULT NULL
+  `status` enum('Pass','Fail','Pending') DEFAULT NULL,
+  `gpt_instructions` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `units`
 --
 
-INSERT INTO `units` (`unit_id`, `unit_name`, `subject_id`, `content`, `file`, `type`, `link`, `status`) VALUES
-(1, 'Unit 1', 1, '11 22', NULL, 'Unit', '', NULL),
-(2, 'Unit 2', 1, '', NULL, 'Unit', '', NULL),
-(5, 'Unit 1', 3, '', NULL, 'Unit', '', NULL),
-(6, 'Unit 2', 3, 'What is your name?', NULL, 'Unit', '', NULL),
-(7, 'Eng 1', 4, '', NULL, 'Unit', '', NULL),
-(8, 'Eng 2', 4, '', NULL, 'Assessment\n', '', 'Pending'),
-(9, 'Math 1', 5, '', NULL, 'Unit', '', NULL),
-(10, 'math3', 5, '', NULL, 'Unit', '', NULL),
-(11, 'Unit 1', 6, '', NULL, 'Unit', '', NULL),
-(12, 'Unit 2', 6, '', NULL, 'Assessment\n', '', 'Fail'),
-(15, 'testttt', 2, 'test222  222 2 2 ', '83397757ad2560816c77bb8f149b4a19.jpg', 'Unit', '', NULL),
-(16, 'sadfsadfafd', 2, 'asdfasd', '', 'Assessment\n', '', 'Pending'),
-(17, 'first unit2', 1, 'uni t1 content2', '', 'Unit', '', 'Pass'),
-(18, 'Assesment #5', 1, '', '', 'Assessment', 'vimeo.com/myvideo5', NULL),
-(19, 'Future Tense 1', 8, 'Hello', '', 'Unit', '', NULL),
-(20, 'Past Tenses', 7, 'Practice past tense', 'b6951be6c9d051fec5cd99195f0e0932.png', 'Unit', '', NULL),
-(21, 'TEST', 8, 'TEST', '16bf9b3117996b04adbf0fa23c6720a1.png', 'Assessment', 'vimeo.com/myvideo3333', NULL),
-(22, 'TEST2', 8, 'TEST2', 'aa2bf58e00b7d994f71b912e1df3dcdb.png', 'Assessment', '', NULL),
-(23, 'TEST3', 8, 'TEST3', '40233a624c3ac12ddd2612d4bb3b74be.svg', 'Unit', '', NULL);
+INSERT INTO `units` (`unit_id`, `unit_name`, `subject_id`, `content`, `file`, `type`, `link`, `status`, `gpt_instructions`) VALUES
+(1, 'Unit 1', 1, '11 22', NULL, 'Unit', '', NULL, NULL),
+(2, 'Unit 2', 1, '', NULL, 'Unit', '', NULL, NULL),
+(5, 'Unit 1', 3, '', NULL, 'Unit', '', NULL, NULL),
+(6, 'Unit 2', 3, 'What is your name?', NULL, 'Unit', '', NULL, NULL),
+(7, 'Eng 1', 4, '', NULL, 'Unit', '', NULL, NULL),
+(8, 'Eng 2', 4, '', NULL, 'Assessment\n', '', 'Pending', NULL),
+(9, 'Math 1', 5, '', NULL, 'Unit', '', NULL, NULL),
+(10, 'math3', 5, '', NULL, 'Unit', '', NULL, NULL),
+(11, 'Unit 1', 6, '', NULL, 'Unit', '', NULL, NULL),
+(12, 'Unit 2', 6, '', NULL, 'Assessment\n', '', 'Fail', NULL),
+(15, 'testttt', 2, 'test222  222 2 2 ', '83397757ad2560816c77bb8f149b4a19.jpg', 'Unit', '', NULL, NULL),
+(16, 'sadfsadfafd', 2, 'asdfasd', '', 'Assessment\n', '', 'Pending', NULL),
+(17, 'first unit2', 1, 'uni t1 content2', '', 'Unit', '', 'Pass', NULL),
+(18, 'Assesment #5', 1, '', '', 'Assessment', 'vimeo.com/myvideo5', NULL, NULL),
+(19, 'Future Tense 1', 8, 'Hello', '', 'Unit', '', NULL, NULL),
+(20, 'Past Tenses', 7, 'Practice past tense', 'b6951be6c9d051fec5cd99195f0e0932.png', 'Unit', '', NULL, NULL),
+(21, 'TEST', 8, 'TEST', '16bf9b3117996b04adbf0fa23c6720a1.png', 'Assessment', 'vimeo.com/myvideo3333', NULL, NULL),
+(22, 'TEST2', 8, 'TEST2', 'aa2bf58e00b7d994f71b912e1df3dcdb.png', 'Assessment', '', NULL, NULL),
+(23, 'TEST3', 8, 'TEST3', '40233a624c3ac12ddd2612d4bb3b74be.svg', 'Unit', '', NULL, NULL);
 
 -- --------------------------------------------------------
 
