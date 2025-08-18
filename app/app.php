@@ -1,4 +1,10 @@
 <?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
@@ -16,7 +22,7 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || substr($_SERVER['HTTP_HOST'], 0, 9)
 }
 
 	function root(): string{
-		return $GLOBALS["prod"] == true ? "https://lms.kashifali.me/" : "http://localhost/listenSpeak/";
+		return $GLOBALS["prod"] == true ? "http://listenspeak.abcdatabase.online/" : "http://localhost/listenSpeak/";
 	}
 	function js_alert($msg){
 		echo '

@@ -9,11 +9,17 @@ if ($_SERVER['HTTP_HOST'] === 'localhost' || substr($_SERVER['HTTP_HOST'], 0, 9)
     $GLOBALS["prod"] = true;
 }
 
-if($GLOBALS["prod"]){
-    $con = mysqli_connect("localhost","u953547654_lms","Lms@12345","u953547654_lms");
-}else{
-    $con = mysqli_connect("localhost","root","","abc_lms");
-}
+$host = $_ENV['host'];
+$user = $_ENV['user'];
+$pass = $_ENV['pass'];
+$db = $_ENV['db'];
+
+//if($GLOBALS["prod"]){
+//    $con = mysqli_connect("localhost","u953547654_lms","Lms@12345","u953547654_lms");
+//}else{
+//    $con = mysqli_connect("localhost","root","","abc_lms");
+//}
+$con = mysqli_connect("localhost",$user,$pass,$db);
 
 // Check connection
 if (mysqli_connect_errno()) {

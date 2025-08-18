@@ -141,9 +141,6 @@ $audio_responses = mysqli_fetch_array($s1);
                                         <div id="conversationLog" class="border rounded p-2 mt-2" style="height:150px; overflow:auto;"></div>
                                     </div>
                                     <script>
-                                        <?php require '../../vendor/autoload.php';
-                                        $dotenv = Dotenv\Dotenv::createImmutable("../../");
-                                        $dotenv->Load();?>
 
                                         const openAiKey = "<?php echo $_ENV['OPENAI_API_KEY'] ?>";
                                         const gptInstructions = <?=json_encode($s2['gpt_instructions'] ?? '')?>;

@@ -4,3 +4,4 @@ assets/files
 app/db.php
 /.env
 .env
+.idea/*
